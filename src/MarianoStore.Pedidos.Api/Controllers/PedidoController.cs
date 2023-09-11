@@ -1,5 +1,5 @@
 using MarianoStore.Core.Services.RabbitMq.Publisher;
-using MarianoStore.Pedidos.Api.ApplicationServices.NovoPedido;
+using MarianoStore.Pedidos.Application.Services.NovoPedido;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

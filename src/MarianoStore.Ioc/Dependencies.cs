@@ -1,12 +1,12 @@
-﻿using MarianoStore.Core.Settings;
-using Microsoft.Extensions.DependencyInjection;
-using System.Data.SqlClient;
+﻿using MarianoStore.Core.Data;
 using MarianoStore.Core.Ioc;
-using MarianoStore.Core.Data;
-using RabbitMQ.Client;
-using System.Collections.Generic;
 using MarianoStore.Core.Services.RabbitMq.Consumer;
 using MarianoStore.Core.Services.RabbitMq.Publisher;
+using MarianoStore.Core.Settings;
+using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace MarianoStore.Ioc
 {
@@ -25,14 +25,11 @@ namespace MarianoStore.Ioc
                 return ConnectionDatabase.GetConnection(environmentSettings);
             });
 
-            // .Core.Messages
-            Core.Messages.Dependencies.Register(services);
-
-            // .Core.Services
-            Core.Services.Dependencies.Register(services);
-
             // .Core.Settings
             services.AddSingleton(environmentSettings);
+
+            //Services
+            Services.Dependencies.Register(services);
         }
 
         public static void RegisterDependenciesRabbitMq(
@@ -42,7 +39,7 @@ namespace MarianoStore.Ioc
             IList<PublisherSetup> publishersSetup,
             IList<ConsumerSetup> consumersSetup)
         {
-            Core.Services.RabbitMq.Dependencies.Register(
+            Services.RabbitMq.Dependencies.Register(
                 services,
                 environmentSettings,
                 connection,

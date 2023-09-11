@@ -10,8 +10,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\MarianoStore.Catalogo.Application\MarianoStore.Catalogo.Application.csproj" />
 		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
 		<ProjectReference Include="..\MarianoStore.Ioc\MarianoStore.Ioc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="AsyncOperationsOnCatalogo\Commands\ConsumersCommands\" />
+	  <Folder Include="AsyncOperationsOnCatalogo\Events\ConsumersEvents\" />
 	</ItemGroup>
 
 </Project>

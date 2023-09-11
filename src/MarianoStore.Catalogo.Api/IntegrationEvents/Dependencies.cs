@@ -1,6 +1,5 @@
-﻿using MarianoStore.Catalogo.Api.IntegrationEvents.Pedidos.Pedido;
+﻿using MarianoStore.Catalogo.Api.IntegrationEvents.Pagamento;
 using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Core.Services.RabbitMq.Publisher;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Collections.Generic;
@@ -12,12 +11,11 @@ namespace MarianoStore.Catalogo.Api.IntegrationEvents
         public static void Register(IServiceCollection services)
         {
             //Pedidos
-            services.AddHostedService<Pedido_PedidosEventHandler>();
+            services.AddHostedService<Pagamento_PagamentoEventHandler>();
         }
 
         public static void RegisterDependenciesRabbitMq(
             IConnection connectionRabbitMq,
-            List<PublisherSetup> publishersSetup,
             List<ConsumerSetup> consumersSetup)
         {
             consumersSetup.AddRange(IntegrationEventsConsumersConfig.Register(connectionRabbitMq));

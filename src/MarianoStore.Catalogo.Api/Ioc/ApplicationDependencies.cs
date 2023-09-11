@@ -14,24 +14,32 @@ namespace MarianoStore.Catalogo.Api.Ioc
             this IServiceCollection services,
             EnvironmentSettings environmentSettings)
         {
+            Application.EventsHandlers.Dependencies.Register(services);
+            Application.IntegrationEvents.EventsHandlers.Dependencies.Register(services);
+            Application.Services.Dependencies.Register(services);
+
+            AsyncOperationsOnCatalogo.Dependencies.Register(services);
+            IntegrationEvents.Dependencies.Register(services);
+
             MarianoStore.Ioc.Dependencies.Register(services, environmentSettings);
             RegisterDependenciesRabbitMq(services, environmentSettings);
         }
 
         private static void RegisterDependenciesRabbitMq(IServiceCollection services, EnvironmentSettings environmentSettings)
         {
-            IntegrationEvents.Dependencies.Register(services);
-
-
             ConnectionFactory connectionFactory = CreateConnectionFactory.Create(environmentSettings);
             IConnection connectionRabbitMq = CreateConnection.Create(connectionFactory);
 
             var publishersSetup = new List<PublisherSetup>();
             var consumersSetup = new List<ConsumerSetup>();
 
-            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+            AsyncOperationsOnCatalogo.Dependencies.RegisterDependenciesRabbitMq(
                 connectionRabbitMq,
                 publishersSetup,
+                consumersSetup);
+
+            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+                connectionRabbitMq,
                 consumersSetup);
 
             //

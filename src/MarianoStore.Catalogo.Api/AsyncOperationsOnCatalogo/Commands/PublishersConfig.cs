@@ -1,0 +1,19 @@
+﻿using MarianoStore.Core.Services.RabbitMq;
+using MarianoStore.Core.Services.RabbitMq.Publisher;
+using RabbitMQ.Client;
+using System.Collections.Generic;
+
+namespace MarianoStore.Catalogo.Api.AsyncOperationsOnCatalogo.Commands
+{
+    public class PublishersConfig
+    {
+        public static List<PublisherSetup> Register(IConnection connectionRabbitMq)
+        {
+            IModel publisherChannelDefault = CreateChannel.Create(connectionRabbitMq);
+
+            return new List<PublisherSetup>
+            {
+            };
+        }
+    }
+}

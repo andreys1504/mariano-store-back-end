@@ -14,14 +14,14 @@ namespace MarianoStore.Catalogo.Api.IntegrationEvents
 
             return new List<ConsumerSetup>
             {
-                //Pedidos
-                // Pedidos.Pedido
+                //Pagamento
+                // Pagamento.Pagamento
                 new ConsumerSetup(
                     typeMessage: TypeMessage.Event,
                     consumerChannel: consumerChannelDefault,
-                    exchangeName: IntegrationEventsQueuesSettings.PEDIDOS.PedidoEventsExchange,
-                    queueName: IntegrationEventsQueuesSettings.PEDIDOS.PedidoEvents.Queue,
-                    routingKey: IntegrationEventsQueuesSettings.PEDIDOS.PedidoEvents.RoutingKey)
+                    exchangeName: IntegrationEventsQueuesSettings.PAGAMENTO.PagamentoEventsExchange,
+                    queueName: IntegrationEventsQueuesSettings.PAGAMENTO.PagamentoEvents.Queue,
+                    routingKey: IntegrationEventsQueuesSettings.PAGAMENTO.PagamentoEvents.RoutingKey)
             };
         }
     }
