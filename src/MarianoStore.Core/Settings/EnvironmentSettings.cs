@@ -10,7 +10,9 @@ namespace MarianoStore.Core.Settings
         public EnvironmentSettings(
             string currentEnvironment,
             string projectName,
-            string currentContext)
+            string currentContext,
+            string applicationLayer,
+            string domainLayer)
         {
             currentEnvironment = currentEnvironment.ToLower();
             MarianoStore.Environment? environment = MarianoStore.Environments.GetEnvironments.FirstOrDefault(env_ => env_.ToString().ToLower() == currentEnvironment);
@@ -20,11 +22,15 @@ namespace MarianoStore.Core.Settings
             CurrentEnvironment = environment.Value;
             ProjectName = projectName;
             CurrentContext = currentContext;
+            ApplicationLayer = applicationLayer;
+            DomainLayer = domainLayer;
         }
 
         public MarianoStore.Environment CurrentEnvironment { get; set; }
         public string ProjectName { get; set; }
         public string CurrentContext { get; set; }
+        public string ApplicationLayer { get; set; }
+        public string DomainLayer { get; set; }
         public string SqlServerConnectionString { get; set; }
         public RabbitMqSettings RabbitMq { get; set; } = new RabbitMqSettings();
 

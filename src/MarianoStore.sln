@@ -25,11 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Catalogo.Appli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamento.Servico", "Pagamento.Servico", "{F780B53C-A9B2-4692-A511-EFBCB88B6DDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Pagamento.Api", "MarianoStore.Pagamento.Api\MarianoStore.Pagamento.Api.csproj", "{43A0FBB5-21EF-4522-AA6D-134207D35E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pagamento.Api", "MarianoStore.Pagamento.Api\MarianoStore.Pagamento.Api.csproj", "{43A0FBB5-21EF-4522-AA6D-134207D35E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Pagamento.Application", "MarianoStore.Pagamento.Application\MarianoStore.Pagamento.Application.csproj", "{92ACD0B7-96D1-4B8B-8329-DF40795BF0A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pagamento.Application", "MarianoStore.Pagamento.Application\MarianoStore.Pagamento.Application.csproj", "{92ACD0B7-96D1-4B8B-8329-DF40795BF0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Pagamento.Domain", "MarianoStore.Pagamento.Domain\MarianoStore.Pagamento.Domain.csproj", "{015BF700-8024-4AF9-AE42-C61BE9F519CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pagamento.Domain", "MarianoStore.Pagamento.Domain\MarianoStore.Pagamento.Domain.csproj", "{015BF700-8024-4AF9-AE42-C61BE9F519CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Catalogo.Domain", "MarianoStore.Catalogo.Domain\MarianoStore.Catalogo.Domain.csproj", "{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{015BF700-8024-4AF9-AE42-C61BE9F519CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{015BF700-8024-4AF9-AE42-C61BE9F519CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{015BF700-8024-4AF9-AE42-C61BE9F519CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{43A0FBB5-21EF-4522-AA6D-134207D35E57} = {F780B53C-A9B2-4692-A511-EFBCB88B6DDE}
 		{92ACD0B7-96D1-4B8B-8329-DF40795BF0A4} = {F780B53C-A9B2-4692-A511-EFBCB88B6DDE}
 		{015BF700-8024-4AF9-AE42-C61BE9F519CF} = {F780B53C-A9B2-4692-A511-EFBCB88B6DDE}
+		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D} = {2B6BCAB8-0D5A-45D2-97F0-1AB35D220CF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {691FD08C-C285-4904-BA75-448C9B2D28FF}

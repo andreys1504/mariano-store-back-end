@@ -30,7 +30,7 @@ namespace MarianoStore.Services.RabbitMq.Publisher
             _serviceProvider = serviceProvider;
         }
 
-        public async Task PublishCommandAsync<TObject>(TObject @object) where TObject : Message
+        public async Task PublishCommandAsync<TObject>(TObject @object) where TObject : Command
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
 
@@ -100,7 +100,7 @@ namespace MarianoStore.Services.RabbitMq.Publisher
             }
         }
 
-        public async Task PublishEventAsync<TObject>(TObject @object) where TObject : Message
+        public async Task PublishEventAsync<TObject>(TObject @object) where TObject : Event
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
 

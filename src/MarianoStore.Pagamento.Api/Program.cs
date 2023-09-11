@@ -20,7 +20,12 @@ namespace MarianoStore.Pagamento.Api
         //
         private static EnvironmentSettings BuildApplication(WebApplicationBuilder builder)
         {
-            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(builder.Configuration, projectName: "Pagamento.Api", currentContext: "Pagamento");
+            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
+                builder.Configuration, 
+                projectName: "Pagamento.Api", 
+                currentContext: "Pagamento", 
+                applicationLayer: "MarianoStore.Pagamento.Application",
+                domainLayer: "MarianoStore.Pagamento.Domain");
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);
 
             builder.Services.AddControllers();

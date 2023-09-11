@@ -1,8 +1,9 @@
 ﻿using MarianoStore.Core.Messages;
+using MediatR;
 
 namespace MarianoStore.Catalogo.Application.IntegrationEvents.Events
 {
-    public class PagamentoRealizadoSucessoEvent : Message
+    public class PagamentoRealizadoSucessoEvent : Event, INotification
     {
     }
 }

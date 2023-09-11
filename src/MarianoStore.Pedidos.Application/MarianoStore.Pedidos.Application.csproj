@@ -5,12 +5,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
-	  <ProjectReference Include="..\MarianoStore.Pedidos.Domain\MarianoStore.Pedidos.Domain.csproj" />
+		<PackageReference Include="MediatR" Version="12.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="IntegrationEvents\Events\" />
+		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
+		<ProjectReference Include="..\MarianoStore.Pedidos.Domain\MarianoStore.Pedidos.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="IntegrationEvents\Events\" />
 	</ItemGroup>
 
 </Project>

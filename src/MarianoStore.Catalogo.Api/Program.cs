@@ -20,7 +20,12 @@ namespace MarianoStore.Catalogo.Api
         //
         private static EnvironmentSettings BuildApplication(WebApplicationBuilder builder)
         {
-            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(builder.Configuration, projectName: "Catalogo.Api", currentContext: "Catalogo");
+            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
+                builder.Configuration, 
+                projectName: "Catalogo.Api", 
+                currentContext: "Catalogo", 
+                applicationLayer: "MarianoStore.Catalogo.Application",
+                domainLayer: "MarianoStore.Catalogo.Domain");
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);
 
             builder.Services.AddControllers();

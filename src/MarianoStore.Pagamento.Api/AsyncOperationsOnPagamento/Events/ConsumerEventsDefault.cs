@@ -1,9 +1,7 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Pagamento.Application.EventsHandlers.PagamentoRealizadoSucesso;
-using MarianoStore.Pagamento.Domain.Events;
+﻿using MarianoStore.Core.Services.RabbitMq;
+using MarianoStore.Core.Services.RabbitMq.Consumer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,8 +32,10 @@ namespace MarianoStore.Pagamento.Api.AsyncOperationsOnPagamento.Events
                     if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
 
 
-                    if (eventName == typeof(PagamentoRealizadoSucessoEvent).FullName)
-                        scope.ServiceProvider.GetService<PagamentoRealizadoSucessoEventHandler>().Handle(JsonConvert.DeserializeObject<PagamentoRealizadoSucessoEvent>(serializedEvent)).Wait();
+                    HelpersRabbitMq.SendEventToHandler(
+                        serializedEvent: serializedEvent, 
+                        eventName: eventName, 
+                        scope);
                 });
         }
     }

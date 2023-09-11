@@ -1,5 +1,4 @@
-﻿using MarianoStore.Core.BuildApplications.Build;
-using MarianoStore.Core.Settings;
+﻿using MarianoStore.Core.Settings;
 using Microsoft.Extensions.Configuration;
 
 namespace MarianoStore.Core.BuildApplications.Build
@@ -9,12 +8,16 @@ namespace MarianoStore.Core.BuildApplications.Build
         public static EnvironmentSettings Create(
             IConfiguration configuration,
             string projectName,
-            string currentContext)
+            string currentContext,
+            string applicationLayer,
+            string domainLayer)
         {
             var environmentSettings = new EnvironmentSettings(
                 currentEnvironment: CurrentEnvironmentBuildConfigurations.GetCurrentEnvironmentName(configuration),
                 projectName: projectName,
-                currentContext: currentContext);
+                currentContext: currentContext,
+                applicationLayer: applicationLayer,
+                domainLayer: domainLayer);
             AppSettingsJsonBuildConfigurations.GetConfigurationsInAppSettingsJson(configuration, environmentSettings);
             environmentSettings.GetConfigurationsInEnvironment(configuration);
 

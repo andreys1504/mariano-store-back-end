@@ -1,8 +1,7 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Pedidos.Application.Services.NovoPedido;
+﻿using MarianoStore.Core.Services.RabbitMq;
+using MarianoStore.Core.Services.RabbitMq.Consumer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,8 +32,13 @@ namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
                     if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName)) return;
 
 
-                    if (commandName == typeof(NovoPedidoRequest).FullName)
-                        scope.ServiceProvider.GetService<NovoPedidoAppService>().Handle(JsonConvert.DeserializeObject<NovoPedidoRequest>(serializedCommand)).Wait();
+                    HelpersRabbitMq.SendCommandToHandler(
+                            serializedCommand: serializedCommand,
+                            commandName: commandName,
+                            scope);
+
+                    //if (commandName == typeof(NovoPedidoRequest).FullName)
+                    //    scope.ServiceProvider.GetService<NovoPedidoAppService>().Handle(JsonConvert.DeserializeObject<NovoPedidoRequest>(serializedCommand)).Wait();
                 });
         }
     }

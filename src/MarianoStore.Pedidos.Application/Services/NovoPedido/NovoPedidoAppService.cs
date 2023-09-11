@@ -1,11 +1,13 @@
 ﻿using MarianoStore.Core.Services.RabbitMq.Publisher;
 using MarianoStore.Pedidos.Domain.Events;
+using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarianoStore.Pedidos.Application.Services.NovoPedido
 {
-    public class NovoPedidoAppService
+    public class NovoPedidoAppService : IRequestHandler<NovoPedidoRequest, bool>
     {
         private readonly IPublisherRabbitMq _publisherRabbitMq;
 
@@ -14,7 +16,7 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
             _publisherRabbitMq = publisherRabbitMq;
         }
 
-        public async Task Handle(NovoPedidoRequest request)
+        public async Task<bool> Handle(NovoPedidoRequest request, CancellationToken cancellationToken)
         {
             //cria novo pedido
             var pedido = new
@@ -38,6 +40,8 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
             };
 
             await _publisherRabbitMq.PublishEventAsync(pedidoRealizadoSucessoEvent);
+
+            return true;
         }
     }
 }

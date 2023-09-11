@@ -29,13 +29,14 @@ namespace MarianoStore.Pagamento.Api.IntegrationEvents.Pedidos
                 queueName: IntegrationEventsQueuesSettings.PEDIDOS.PedidoEvents.Queue,
                 consumer: (serializedEvent, eventName) =>
                 {
-                    if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
-
                     using IServiceScope scope = _serviceProvider.CreateScope();
 
+                    if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
+
+                    
                     if (eventName.Contains($".{nameof(PedidoRealizadoSucessoEvent)}"))
                         scope.ServiceProvider.GetService<PedidoRealizadoSucessoEventHandler>()
-                            .Handle(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent)).Wait();
+                            .Handle(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent), CancellationToken.None).Wait();
                 });
         }
     }

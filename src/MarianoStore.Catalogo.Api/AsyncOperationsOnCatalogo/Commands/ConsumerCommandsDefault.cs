@@ -1,4 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
+﻿using MarianoStore.Core.Services.RabbitMq;
+using MarianoStore.Core.Services.RabbitMq.Consumer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -31,7 +32,10 @@ namespace MarianoStore.Catalogo.Api.AsyncOperationsOnCatalogo.Commands
                     if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName)) return;
 
 
-                    
+                    HelpersRabbitMq.SendCommandToHandler(
+                            serializedCommand: serializedCommand,
+                            commandName: commandName,
+                            scope);
                 });
         }
     }

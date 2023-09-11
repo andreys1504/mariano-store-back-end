@@ -65,7 +65,19 @@ namespace MarianoStore.Services.RabbitMq.Consumer
                 //TODO:
                 //using IServiceScope scope = _serviceProvider2.CreateScope();
 
-                (string commandName, MessageInBrokerModel messageInBroker, string serializedCommand) = GetMessage(eventArgs, channel, loggerService);
+                string commandName = null;
+                MessageInBrokerModel messageInBroker = null;
+                string serializedCommand = null;
+
+                try
+                {
+                    (commandName, messageInBroker, serializedCommand) = GetMessage(eventArgs, channel, loggerService);
+                }
+                catch
+                {
+                    return;
+                }
+
 
                 if (messageInBroker == null || string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName))
                     return;
@@ -141,6 +153,8 @@ namespace MarianoStore.Services.RabbitMq.Consumer
                 loggerService
                     .LogErrorRegisterAsync(ex, "RabbitMQ; GetMessage: Erro ao deserializar mensagem")
                     .GetAwaiter().GetResult();
+
+                throw;
             }
 
 

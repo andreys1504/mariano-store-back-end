@@ -1,9 +1,7 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Pedidos.Application.EventsHandlers.PedidoRealizadoSucesso;
-using MarianoStore.Pedidos.Domain.Events;
+﻿using MarianoStore.Core.Services.RabbitMq;
+using MarianoStore.Core.Services.RabbitMq.Consumer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,8 +32,13 @@ namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events
                     if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
 
 
-                    if (eventName == typeof(PedidoRealizadoSucessoEvent).FullName)
-                        scope.ServiceProvider.GetService<PedidoRealizadoSucessoEventHandler>().Handle(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent)).Wait();
+                    HelpersRabbitMq.SendEventToHandler(
+                        serializedEvent: serializedEvent,
+                        eventName: eventName,
+                        scope);
+
+                    //if (eventName == typeof(PedidoRealizadoSucessoEvent).FullName)
+                    //    scope.ServiceProvider.GetService<PedidoRealizadoSucessoEventHandler>().Handle(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent)).Wait();
                 });
         }
     }

@@ -4,6 +4,7 @@ using MarianoStore.Core.Services.RabbitMq.Publisher;
 using MarianoStore.Core.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
+using System;
 using System.Collections.Generic;
 
 namespace MarianoStore.Pedidos.Api.Ioc
@@ -14,6 +15,9 @@ namespace MarianoStore.Pedidos.Api.Ioc
             this IServiceCollection services,
             EnvironmentSettings environmentSettings)
         {
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.DomainLayer)));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.ApplicationLayer)));
+
             Application.EventsHandlers.Dependencies.Register(services);
             Application.IntegrationEvents.EventsHandlers.Dependencies.Register(services);
             Application.Services.Dependencies.Register(services);

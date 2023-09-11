@@ -20,7 +20,12 @@ namespace MarianoStore.Pedidos.Api
         //
         private static EnvironmentSettings BuildApplication(WebApplicationBuilder builder)
         {
-            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(builder.Configuration, projectName: "Pedidos.Api", currentContext: "Pedidos");
+            EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
+                builder.Configuration, 
+                projectName: "Pedidos.Api", 
+                currentContext: "Pedidos", 
+                applicationLayer: "MarianoStore.Pedidos.Application",
+                domainLayer: "MarianoStore.Pedidos.Domain");
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);
 
             builder.Services.AddControllers();
