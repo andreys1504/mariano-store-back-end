@@ -1,0 +1,13 @@
+
+**/.vs/
+**/.vscode/
+**/bin/
+**/obj/
+
+
+**/PublishProfiles/
+#**/nuget.config
+
+
+**/anotacoes.txt
+

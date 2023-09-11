@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalogo.Servico", "Catalogo.Servico", "{2B6BCAB8-0D5A-45D2-97F0-1AB35D220CF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pedidos.Servico", "Pedidos.Servico", "{3CE48CD1-3B3C-45FA-9472-3FD8B1A60CD7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Catalogo.Api", "MarianoStore.Catalogo.Api\MarianoStore.Catalogo.Api.csproj", "{28F54AFE-2EFF-43A7-A988-318416EAF39A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Core", "MarianoStore.Core\MarianoStore.Core.csproj", "{C8A13E89-60E4-4829-B3C3-30A923801B03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Ioc", "MarianoStore.Ioc\MarianoStore.Ioc.csproj", "{87CBDF78-F699-43D8-9E0C-257D01952331}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pedidos.Api", "MarianoStore.Pedidos.Api\MarianoStore.Pedidos.Api.csproj", "{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28F54AFE-2EFF-43A7-A988-318416EAF39A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F54AFE-2EFF-43A7-A988-318416EAF39A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F54AFE-2EFF-43A7-A988-318416EAF39A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F54AFE-2EFF-43A7-A988-318416EAF39A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A13E89-60E4-4829-B3C3-30A923801B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A13E89-60E4-4829-B3C3-30A923801B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A13E89-60E4-4829-B3C3-30A923801B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A13E89-60E4-4829-B3C3-30A923801B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87CBDF78-F699-43D8-9E0C-257D01952331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87CBDF78-F699-43D8-9E0C-257D01952331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87CBDF78-F699-43D8-9E0C-257D01952331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87CBDF78-F699-43D8-9E0C-257D01952331}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{28F54AFE-2EFF-43A7-A988-318416EAF39A} = {2B6BCAB8-0D5A-45D2-97F0-1AB35D220CF7}
+		{33603AE2-5F5F-4CB6-B3BF-BE9F45680C98} = {3CE48CD1-3B3C-45FA-9472-3FD8B1A60CD7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {691FD08C-C285-4904-BA75-448C9B2D28FF}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,15 @@
+﻿using MarianoStore.Core.Settings;
+using System.Data.SqlClient;
+
+namespace MarianoStore.Core.Data
+{
+    public class ConnectionDatabase
+    {
+        public static SqlConnection GetConnection(EnvironmentSettings environmentSettings)
+        {
+            var sqlConnection = new SqlConnection(connectionString: environmentSettings.SqlServerConnectionString);
+            sqlConnection.Open();
+            return sqlConnection;
+        }
+    }
+}
