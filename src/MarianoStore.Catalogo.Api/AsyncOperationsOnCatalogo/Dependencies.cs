@@ -16,7 +16,7 @@ namespace MarianoStore.Catalogo.Api.AsyncOperationsOnCatalogo
             services.AddHostedService<ConsumerEventsDefault>();
         }
 
-        public static void RegisterDependenciesRabbitMq(
+        public static void PublishersConsumersConfigRegister(
             IConnection connectionRabbitMq,
             List<PublisherSetup> publishersSetup,
             List<ConsumerSetup> consumersSetup)

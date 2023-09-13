@@ -11,10 +11,10 @@ namespace MarianoStore.Catalogo.Api.IntegrationEvents
         public static void Register(IServiceCollection services)
         {
             //Pedidos
-            services.AddHostedService<Pagamento_PagamentoEventHandler>();
+            services.AddHostedService<Pagamento_PagamentoConsumerHandler>();
         }
 
-        public static void RegisterDependenciesRabbitMq(
+        public static void ConsumersConfigRegister(
             IConnection connectionRabbitMq,
             List<ConsumerSetup> consumersSetup)
         {

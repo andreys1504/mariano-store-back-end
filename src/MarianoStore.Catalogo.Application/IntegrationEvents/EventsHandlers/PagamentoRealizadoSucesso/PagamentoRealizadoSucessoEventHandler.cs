@@ -1,4 +1,6 @@
 ﻿using MarianoStore.Catalogo.Application.IntegrationEvents.Events;
+using MarianoStore.Catalogo.Application.Services.BaixaEstoque;
+using MarianoStore.Core.Mediator;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,12 +9,18 @@ namespace MarianoStore.Catalogo.Application.IntegrationEvents.EventsHandlers.Pag
 {
     public class PagamentoRealizadoSucessoEventHandler : INotificationHandler<PagamentoRealizadoSucessoEvent>
     {
-        public Task Handle(PagamentoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
-        {
-            //TODO: criar AppService para
-            //realizar baixa estoque produto
+        private readonly IMediatorHandler _mediatorHandler;
 
-            return Task.CompletedTask;
+        public PagamentoRealizadoSucessoEventHandler(IMediatorHandler mediatorHandler)
+        {
+            _mediatorHandler = mediatorHandler;
+        }
+
+        public async Task Handle(PagamentoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
+        {
+            var baixaEstoqueRequest = new BaixaEstoqueRequest();
+
+            await _mediatorHandler.SendCommandToHandlerAsync(baixaEstoqueRequest);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace MarianoStore.Pedidos.Api.IntegrationEvents
         {
         }
 
-        public static void RegisterDependenciesRabbitMq(
+        public static void ConsumersConfigRegister(
             IConnection connectionRabbitMq,
             List<ConsumerSetup> consumersSetup)
         {

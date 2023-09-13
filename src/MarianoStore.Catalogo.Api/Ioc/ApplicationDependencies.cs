@@ -33,12 +33,12 @@ namespace MarianoStore.Catalogo.Api.Ioc
             var publishersSetup = new List<PublisherSetup>();
             var consumersSetup = new List<ConsumerSetup>();
 
-            AsyncOperationsOnCatalogo.Dependencies.RegisterDependenciesRabbitMq(
+            AsyncOperationsOnCatalogo.Dependencies.PublishersConsumersConfigRegister(
                 connectionRabbitMq,
                 publishersSetup,
                 consumersSetup);
 
-            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+            IntegrationEvents.Dependencies.ConsumersConfigRegister(
                 connectionRabbitMq,
                 consumersSetup);
 

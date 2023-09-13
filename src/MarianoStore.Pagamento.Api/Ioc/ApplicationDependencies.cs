@@ -34,12 +34,12 @@ namespace MarianoStore.Pagamento.Api.Ioc
             var publishersSetup = new List<PublisherSetup>();
             var consumersSetup = new List<ConsumerSetup>();
 
-            AsyncOperationsOnPagamento.Dependencies.RegisterDependenciesRabbitMq(
+            AsyncOperationsOnPagamento.Dependencies.PublishersConsumersConfigRegister(
                 connectionRabbitMq,
                 publishersSetup,
                 consumersSetup);
 
-            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+            IntegrationEvents.Dependencies.ConsumersConfigRegister(
                 connectionRabbitMq,
                 consumersSetup);
 

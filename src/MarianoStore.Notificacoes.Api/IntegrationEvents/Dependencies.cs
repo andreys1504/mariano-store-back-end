@@ -11,13 +11,13 @@ namespace MarianoStore.Notificacoes.Api.IntegrationEvents
         public static void Register(IServiceCollection services)
         {
             //Pagamento
-            services.AddHostedService<Pagamento_PagamentoEventHandler>();
+            services.AddHostedService<Pagamento_PagamentoConsumerHandler>();
 
             //Pedidos
-            services.AddHostedService<Pedido_PedidosEventHandler>();
+            services.AddHostedService<Pedido_PedidosConsumerHandler>();
         }
 
-        public static void RegisterDependenciesRabbitMq(
+        public static void ConsumersConfigRegister(
             IConnection connectionRabbitMq,
             List<ConsumerSetup> consumersSetup)
         {

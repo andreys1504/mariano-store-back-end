@@ -34,12 +34,12 @@ namespace MarianoStore.Pedidos.Api.Ioc
             var publishersSetup = new List<PublisherSetup>();
             var consumersSetup = new List<ConsumerSetup>();
 
-            AsyncOperationsOnPedidos.Dependencies.RegisterDependenciesRabbitMq(
+            AsyncOperationsOnPedidos.Dependencies.PublishersConsumersConfigRegister(
                 connectionRabbitMq,
                 publishersSetup,
                 consumersSetup);
 
-            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+            IntegrationEvents.Dependencies.ConsumersConfigRegister(
                 connectionRabbitMq,
                 consumersSetup);
 

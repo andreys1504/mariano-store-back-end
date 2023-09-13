@@ -32,7 +32,7 @@ namespace MarianoStore.Notificacoes.Api.Ioc
             var publishersSetup = new List<PublisherSetup>();
             var consumersSetup = new List<ConsumerSetup>();
 
-            IntegrationEvents.Dependencies.RegisterDependenciesRabbitMq(
+            IntegrationEvents.Dependencies.ConsumersConfigRegister(
                 connectionRabbitMq,
                 consumersSetup);
 

@@ -19,9 +19,9 @@ namespace MarianoStore.Pagamento.Application.IntegrationEvents.EventsHandlers.Pe
 
         public async Task Handle(PedidoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
         {
-            var request = new PagarPedidoRequest();
+            var pagarPedidoRequest = new PagarPedidoRequest();
 
-            await _mediatorHandler.SendCommandToHandlerAsync(request);
+            await _mediatorHandler.SendCommandToHandlerAsync(pagarPedidoRequest);
         }
     }
 }
