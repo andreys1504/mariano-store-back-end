@@ -1,6 +1,6 @@
-﻿using MarianoStore.Core.Services.RabbitMq;
-using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq;
+using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Infra.Services.RabbitMq.Publisher;
 using MarianoStore.Core.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
@@ -17,10 +17,6 @@ namespace MarianoStore.Pedidos.Api.Ioc
         {
             services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.DomainLayer)));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.ApplicationLayer)));
-
-            Application.EventsHandlers.Dependencies.Register(services);
-            Application.IntegrationEvents.EventsHandlers.Dependencies.Register(services);
-            Application.Services.Dependencies.Register(services);
 
             AsyncOperationsOnPedidos.Dependencies.Register(services);
             IntegrationEvents.Dependencies.Register(services);

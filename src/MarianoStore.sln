@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pedidos.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pedidos.Domain", "MarianoStore.Pedidos.Domain\MarianoStore.Pedidos.Domain.csproj", "{48809DE2-2EC5-4975-A9AA-5029101E8E2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Services", "MarianoStore.Services\MarianoStore.Services.csproj", "{6D97C881-F4AA-4487-8D5C-82698FCCC1B8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Catalogo.Application", "MarianoStore.Catalogo.Application\MarianoStore.Catalogo.Application.csproj", "{694B109C-FEAD-4E18-A52F-44FE718B2FCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamento.Servico", "Pagamento.Servico", "{F780B53C-A9B2-4692-A511-EFBCB88B6DDE}"
@@ -31,7 +29,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pagamento.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Pagamento.Domain", "MarianoStore.Pagamento.Domain\MarianoStore.Pagamento.Domain.csproj", "{015BF700-8024-4AF9-AE42-C61BE9F519CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Catalogo.Domain", "MarianoStore.Catalogo.Domain\MarianoStore.Catalogo.Domain.csproj", "{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Catalogo.Domain", "MarianoStore.Catalogo.Domain\MarianoStore.Catalogo.Domain.csproj", "{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notificacoes.Servico", "Notificacoes.Servico", "{E11D512F-C101-473C-84CE-99B68D59BB5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Notificacoes.Api", "MarianoStore.Notificacoes.Api\MarianoStore.Notificacoes.Api.csproj", "{56648A3D-49C1-484D-8DB6-E02B4542DED2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarianoStore.Notificacoes.Application", "MarianoStore.Notificacoes.Application\MarianoStore.Notificacoes.Application.csproj", "{B0D90389-AD2C-4180-A046-FBBCD92FB021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarianoStore.Infra.Services", "MarianoStore.Infra.Services\MarianoStore.Infra.Services.csproj", "{13FC4AFF-092F-4FB5-A2BC-B905C32D3973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +69,6 @@ Global
 		{48809DE2-2EC5-4975-A9AA-5029101E8E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48809DE2-2EC5-4975-A9AA-5029101E8E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48809DE2-2EC5-4975-A9AA-5029101E8E2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D97C881-F4AA-4487-8D5C-82698FCCC1B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D97C881-F4AA-4487-8D5C-82698FCCC1B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D97C881-F4AA-4487-8D5C-82698FCCC1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D97C881-F4AA-4487-8D5C-82698FCCC1B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{694B109C-FEAD-4E18-A52F-44FE718B2FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{694B109C-FEAD-4E18-A52F-44FE718B2FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{694B109C-FEAD-4E18-A52F-44FE718B2FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +89,18 @@ Global
 		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56648A3D-49C1-484D-8DB6-E02B4542DED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56648A3D-49C1-484D-8DB6-E02B4542DED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56648A3D-49C1-484D-8DB6-E02B4542DED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56648A3D-49C1-484D-8DB6-E02B4542DED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D90389-AD2C-4180-A046-FBBCD92FB021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D90389-AD2C-4180-A046-FBBCD92FB021}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D90389-AD2C-4180-A046-FBBCD92FB021}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D90389-AD2C-4180-A046-FBBCD92FB021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FC4AFF-092F-4FB5-A2BC-B905C32D3973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FC4AFF-092F-4FB5-A2BC-B905C32D3973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FC4AFF-092F-4FB5-A2BC-B905C32D3973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FC4AFF-092F-4FB5-A2BC-B905C32D3973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +115,8 @@ Global
 		{92ACD0B7-96D1-4B8B-8329-DF40795BF0A4} = {F780B53C-A9B2-4692-A511-EFBCB88B6DDE}
 		{015BF700-8024-4AF9-AE42-C61BE9F519CF} = {F780B53C-A9B2-4692-A511-EFBCB88B6DDE}
 		{A3B26A6E-3FC0-4519-A0E7-7F8FE423059D} = {2B6BCAB8-0D5A-45D2-97F0-1AB35D220CF7}
+		{56648A3D-49C1-484D-8DB6-E02B4542DED2} = {E11D512F-C101-473C-84CE-99B68D59BB5C}
+		{B0D90389-AD2C-4180-A046-FBBCD92FB021} = {E11D512F-C101-473C-84CE-99B68D59BB5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {691FD08C-C285-4904-BA75-448C9B2D28FF}

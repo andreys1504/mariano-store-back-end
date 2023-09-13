@@ -1,6 +1,6 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Mediator;
 using MarianoStore.Pagamento.Application.IntegrationEvents.Events;
-using MarianoStore.Pagamento.Domain.Events;
+using MarianoStore.Pagamento.Application.Services.PagarPedido;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,23 +9,19 @@ namespace MarianoStore.Pagamento.Application.IntegrationEvents.EventsHandlers.Pe
 {
     public class PedidoRealizadoSucessoEventHandler : INotificationHandler<PedidoRealizadoSucessoEvent>
     {
-        private readonly IPublisherRabbitMq _publisherRabbitMq;
+        private readonly IMediatorHandler _mediatorHandler;
 
-        public PedidoRealizadoSucessoEventHandler( 
-            IPublisherRabbitMq publisherRabbitMq)
+        public PedidoRealizadoSucessoEventHandler(
+            IMediatorHandler mediatorHandler)
         {
-            _publisherRabbitMq = publisherRabbitMq;
+            _mediatorHandler = mediatorHandler;
         }
 
         public async Task Handle(PedidoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
         {
-            //acessar gateway pagamento
+            var request = new PagarPedidoRequest();
 
-
-            //notificar sistema pagamento realizado com sucesso
-            var pagamentoRealizadoSucessoEvent = new PagamentoRealizadoSucessoEvent();
-
-            await _publisherRabbitMq.PublishEventAsync(pagamentoRealizadoSucessoEvent);
+            await _mediatorHandler.SendCommandToHandlerAsync(request);
         }
     }
 }

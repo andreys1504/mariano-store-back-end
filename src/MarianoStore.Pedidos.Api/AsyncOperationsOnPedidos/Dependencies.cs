@@ -1,5 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Infra.Services.RabbitMq.Publisher;
 using MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands;
 using MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events;
 using Microsoft.Extensions.DependencyInjection;

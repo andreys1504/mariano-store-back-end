@@ -1,4 +1,4 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Mediator;
 using MarianoStore.Pedidos.Domain.Events;
 using MediatR;
 using System;
@@ -9,11 +9,12 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
 {
     public class NovoPedidoAppService : IRequestHandler<NovoPedidoRequest, bool>
     {
-        private readonly IPublisherRabbitMq _publisherRabbitMq;
+        private readonly IMediatorHandler _mediatorHandler;
 
-        public NovoPedidoAppService(IPublisherRabbitMq publisherRabbitMq)
+        public NovoPedidoAppService(
+            IMediatorHandler mediatorHandler)
         {
-            _publisherRabbitMq = publisherRabbitMq;
+            _mediatorHandler = mediatorHandler;
         }
 
         public async Task<bool> Handle(NovoPedidoRequest request, CancellationToken cancellationToken)
@@ -39,7 +40,7 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
                 Quantidade = 1
             };
 
-            await _publisherRabbitMq.PublishEventAsync(pedidoRealizadoSucessoEvent);
+            await _mediatorHandler.SendEventToQueueAsync(pedidoRealizadoSucessoEvent);
 
             return true;
         }

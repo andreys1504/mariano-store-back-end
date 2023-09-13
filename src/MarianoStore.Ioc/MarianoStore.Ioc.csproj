@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
-		<ProjectReference Include="..\MarianoStore.Services\MarianoStore.Services.csproj" />
+		<ProjectReference Include="..\MarianoStore.Infra.Services\MarianoStore.Infra.Services.csproj" />
 	</ItemGroup>
 
 </Project>

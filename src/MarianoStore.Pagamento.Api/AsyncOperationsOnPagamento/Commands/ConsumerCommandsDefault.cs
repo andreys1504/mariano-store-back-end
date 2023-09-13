@@ -1,5 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq;
-using MarianoStore.Core.Services.RabbitMq.Consumer;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -25,17 +25,16 @@ namespace MarianoStore.Pagamento.Api.AsyncOperationsOnPagamento.Commands
             var consumerCommandRabbitMq = scope1.ServiceProvider.GetService<IConsumerCommandRabbitMq>();
             await consumerCommandRabbitMq.ConsumerCommandAsync(
                 queueName: QueuesSettings.CommandsQueue,
-                consumer: (serializedCommand, commandName) =>
+                consumer: (serializedCommand, commandName, commandName_Name) =>
                 {
-                    using IServiceScope scope = _serviceProvider.CreateScope();
-
                     if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName)) return;
 
 
-                    HelpersRabbitMq.SendCommandToHandler(
-                        serializedCommand: serializedCommand,
-                        commandName: commandName,
-                        scope);
+                    using IServiceScope scope = _serviceProvider.CreateScope();
+                    var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
+
+
+                    mediatorHandler.SendCommandObjectToHandlerAsync(serializedCommand: serializedCommand, commandName: commandName).Wait();
                 });
         }
     }

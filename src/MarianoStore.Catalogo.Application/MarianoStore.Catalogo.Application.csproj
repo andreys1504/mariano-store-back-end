@@ -14,4 +14,9 @@
 		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="EventsHandlers\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
+
 </Project>

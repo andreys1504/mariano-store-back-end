@@ -1,6 +1,6 @@
-﻿using MarianoStore.Core.Messages;
-using MarianoStore.Core.Services.RabbitMq;
-using MarianoStore.Core.Services.RabbitMq.Consumer;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq;
+using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Messages;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 

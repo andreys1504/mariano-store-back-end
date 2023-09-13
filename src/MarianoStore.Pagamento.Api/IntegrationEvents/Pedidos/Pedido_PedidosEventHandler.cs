@@ -1,6 +1,6 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Mediator;
 using MarianoStore.Pagamento.Application.IntegrationEvents.Events;
-using MarianoStore.Pagamento.Application.IntegrationEvents.EventsHandlers.PedidoRealizadoSucesso;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -26,17 +26,18 @@ namespace MarianoStore.Pagamento.Api.IntegrationEvents.Pedidos
 
             var consumerEventRabbitMq = scope1.ServiceProvider.GetService<IConsumerEventRabbitMq>();
             await consumerEventRabbitMq.ConsumerEventAsync(
-                queueName: IntegrationEventsQueuesSettings.PEDIDOS.PedidoEvents.Queue,
-                consumer: (serializedEvent, eventName) =>
+                queueName: QueuesSettings.PEDIDOS.PedidoEvents.Queue,
+                consumer: (serializedEvent, eventName, eventName_Name) =>
                 {
-                    using IServiceScope scope = _serviceProvider.CreateScope();
-
                     if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
 
-                    
-                    if (eventName.Contains($".{nameof(PedidoRealizadoSucessoEvent)}"))
-                        scope.ServiceProvider.GetService<PedidoRealizadoSucessoEventHandler>()
-                            .Handle(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent), CancellationToken.None).Wait();
+
+                    using IServiceScope scope = _serviceProvider.CreateScope();
+                    var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
+
+
+                    if (eventName_Name == nameof(PedidoRealizadoSucessoEvent))
+                        mediatorHandler.SendEventToHandlerAsync(JsonConvert.DeserializeObject<PedidoRealizadoSucessoEvent>(serializedEvent)).Wait();
                 });
         }
     }

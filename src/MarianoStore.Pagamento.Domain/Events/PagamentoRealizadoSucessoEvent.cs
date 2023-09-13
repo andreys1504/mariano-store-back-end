@@ -5,5 +5,6 @@ namespace MarianoStore.Pagamento.Domain.Events
 {
     public class PagamentoRealizadoSucessoEvent : Event, INotification
     {
+        public bool SucessoPagamento { get; set; }
     }
 }

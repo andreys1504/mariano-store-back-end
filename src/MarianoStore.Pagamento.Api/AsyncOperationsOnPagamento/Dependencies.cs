@@ -1,5 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq.Consumer;
-using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Infra.Services.RabbitMq.Publisher;
 using MarianoStore.Pagamento.Api.AsyncOperationsOnPagamento.Commands;
 using MarianoStore.Pagamento.Api.AsyncOperationsOnPagamento.Events;
 using Microsoft.Extensions.DependencyInjection;

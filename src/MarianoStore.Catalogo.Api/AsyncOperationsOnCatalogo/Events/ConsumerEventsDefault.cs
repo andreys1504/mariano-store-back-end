@@ -1,5 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq;
-using MarianoStore.Core.Services.RabbitMq.Consumer;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
+using MarianoStore.Core.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -25,17 +25,16 @@ namespace MarianoStore.Catalogo.Api.AsyncOperationsOnCatalogo.Events
             var consumerEventRabbitMq = scope1.ServiceProvider.GetService<IConsumerEventRabbitMq>();
             await consumerEventRabbitMq.ConsumerEventAsync(
                 queueName: QueuesSettings.EventsQueue,
-                consumer: (serializedEvent, eventName) =>
+                consumer: (serializedEvent, eventName, eventName_Name) =>
                 {
-                    using IServiceScope scope = _serviceProvider.CreateScope();
-
                     if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
 
 
-                    HelpersRabbitMq.SendEventToHandler(
-                        serializedEvent: serializedEvent,
-                        eventName: eventName,
-                        scope);
+                    using IServiceScope scope = _serviceProvider.CreateScope();
+                    var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
+
+
+                    mediatorHandler.SendEventObjectToHandlerAsync(serializedEvent: serializedEvent, eventName: eventName).Wait();
                 });
         }
     }

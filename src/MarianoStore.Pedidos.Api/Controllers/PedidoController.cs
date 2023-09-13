@@ -1,4 +1,4 @@
-using MarianoStore.Core.Services.RabbitMq.Publisher;
+using MarianoStore.Core.Mediator;
 using MarianoStore.Pedidos.Application.Services.NovoPedido;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,12 +9,12 @@ namespace MarianoStore.Pedidos.Api.Controllers
     [Route("pedido")]
     public class PedidoController : ControllerBase
     {
-        private readonly IPublisherRabbitMq _publisherRabbitMq;
+        private readonly IMediatorHandler _mediatorHandler;
 
         public PedidoController(
-            IPublisherRabbitMq publisherRabbitMq)
+            IMediatorHandler mediatorHandler)
         {
-            _publisherRabbitMq = publisherRabbitMq;
+            _mediatorHandler = mediatorHandler;
         }
 
         [HttpPost]
@@ -22,7 +22,7 @@ namespace MarianoStore.Pedidos.Api.Controllers
         {
             var request = new NovoPedidoRequest();
 
-            await _publisherRabbitMq.PublishCommandAsync(request);
+            await _mediatorHandler.SendCommandToQueueAsync(request);
 
             return Ok();
         }

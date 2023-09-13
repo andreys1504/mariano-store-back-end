@@ -9,4 +9,8 @@
 	  <ProjectReference Include="..\MarianoStore.Pagamento.Domain\MarianoStore.Pagamento.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="EventsHandlers\" />
+	</ItemGroup>
+
 </Project>

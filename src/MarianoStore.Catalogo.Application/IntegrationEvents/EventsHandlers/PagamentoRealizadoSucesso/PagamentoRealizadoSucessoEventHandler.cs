@@ -9,6 +9,7 @@ namespace MarianoStore.Catalogo.Application.IntegrationEvents.EventsHandlers.Pag
     {
         public Task Handle(PagamentoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
         {
+            //TODO: criar AppService para
             //realizar baixa estoque produto
 
             return Task.CompletedTask;

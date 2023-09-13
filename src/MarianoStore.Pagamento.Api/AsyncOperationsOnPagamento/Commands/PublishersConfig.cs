@@ -1,5 +1,5 @@
-﻿using MarianoStore.Core.Services.RabbitMq;
-using MarianoStore.Core.Services.RabbitMq.Publisher;
+﻿using MarianoStore.Core.Infra.Services.RabbitMq;
+using MarianoStore.Core.Infra.Services.RabbitMq.Publisher;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
