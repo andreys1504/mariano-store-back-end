@@ -16,6 +16,8 @@
 
 	<ItemGroup>
 	  <Folder Include="EventsHandlers\" />
+	  <Folder Include="IntegrationEvents\EventsHandlers\" />
+	  <Folder Include="IntegrationEvents\Events\" />
 	</ItemGroup>
 
 </Project>

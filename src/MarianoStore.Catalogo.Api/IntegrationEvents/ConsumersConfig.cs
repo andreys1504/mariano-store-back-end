@@ -1,6 +1,5 @@
 ﻿using MarianoStore.Core.Infra.Services.RabbitMq;
 using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
-using MarianoStore.Core.Messages;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
@@ -14,14 +13,6 @@ namespace MarianoStore.Catalogo.Api.IntegrationEvents
 
             return new List<ConsumerSetup>
             {
-                //Pagamento
-                // .Pagamento
-                new ConsumerSetup(
-                    typeMessage: TypeMessage.Event,
-                    consumerChannel: consumerChannelDefault,
-                    exchangeName: QueuesSettings.PAGAMENTO.PagamentoEventsExchange,
-                    queueName: QueuesSettings.PAGAMENTO.PagamentoEvents.Queue,
-                    routingKey: QueuesSettings.PAGAMENTO.PagamentoEvents.RoutingKey)
             };
         }
     }
