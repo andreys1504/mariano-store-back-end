@@ -18,9 +18,16 @@ Obs. 2: MarianoStore.Core, MarianoStore.Infra.Services e MarianoStore.Ioc, são 
 - Event, é o resultado de uma ação que alterou o estado do sistema: Cadastro realizado, Pagamento efetuado, Cancelamento realizado.
 
 ### Frameworks/Libs
+
 - .NET/C#
 - ASP.NET
 - RabbitMQ
 - MediatR
 - Docker
 - SQL Server
+
+### Execução ambiente Local
+
+-  Executar: docker-compose up -d
+-  Criar as base junto ao SQL Server: Catalogo_MarianoStore, Notificacoes_MarianoStore, Pagamento_MarianoStore e Pedidos_MarianoStore
+-  Criar tabelas base. Ver: ./sql-server/TabelasBase.sql
