@@ -21,3 +21,5 @@ Obs. 2: MarianoStore.Core, MarianoStore.Infra.Services e MarianoStore.Ioc, são 
 - .NET/C#
 - RabbitMQ
 - MediatR
+- Docker
+- SQL Server
