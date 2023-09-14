@@ -6,6 +6,7 @@ Demonstração de um sistema baseado em microsserviços, onde os serviços se co
 #### Camadas
 
 Obs.: Em um cenário real, cada serviço deve estar em uma solution: Catalogo, Notificacoes, Pagamento e Pedidos. 
+<br />
 Obs. 2: MarianoStore.Core, MarianoStore.Infra.Services e MarianoStore.Ioc, são libs base para cada Serviço e, num cenário real, devem ser gerados pacotes NuGet.
 
 - SERVICO.Application, implementações de funcionalidades a serem consumidas por camadas superiores: API, Job/Workers, etc. Orquestra o fluxo de uma funcionalidade: chamada a repositories, entidades, disparo de events, domain services, persistência na base.
