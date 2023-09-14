@@ -12,7 +12,7 @@ Obs. 2: MarianoStore.Core, MarianoStore.Infra.Services e MarianoStore.Ioc, são 
 - SERVICO.Application, implementações de funcionalidades a serem consumidas por camadas superiores: API, Job/Workers, etc. Orquestra o fluxo de uma funcionalidade: chamada a repositories, entities, domain services, disparo de events, persistência na base, etc.
 - SERVICO.Domain, implementa entities, events, domain services, repositories (abstrações), tipos bases que representam as regras de negócio de um sistema.
 
-#### Command e Event
+#### Commands e Events
 
 - Command, requisita que uma ação seja realizada: Cadastrar, buscar, alterar, etc.
 - Event, é o resultado de uma ação que alterou o estado do sistema: Cadastro realizado, Pagamento efetuado, Cancelamento realizado.
