@@ -4,6 +4,8 @@
 **/bin/
 **/obj/
 
+**/sql-server/data
+**/sql-server/log
 
 **/PublishProfiles/
 #**/nuget.config
