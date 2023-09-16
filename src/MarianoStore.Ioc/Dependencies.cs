@@ -16,9 +16,14 @@ namespace MarianoStore.Ioc
             services.AddHttpClient();
 
             //Core
+            // .Core.ApplicationLayer
+            Core.ApplicationLayer.ApplicationsServices.Dependencies.Register(services);
             Core.ApplicationLayer.EventsHandlers.Dependencies.Register(services);
+            // .Core.Infra
             Core.Infra.Data.Dependencies.Register(services, environmentSettings);
+            // .Core.Mediator
             Core.Mediator.Dependencies.Register(services);
+            // .Core.Settings
             services.AddSingleton(environmentSettings);
 
             //Infra.Services

@@ -1,4 +1,4 @@
-﻿using MarianoStore.Core.Mediator;
+﻿using MarianoStore.Core.ApplicationLayer.ApplicationsServices;
 using MarianoStore.Pagamento.Domain.Events;
 using MediatR;
 using System.Threading;
@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarianoStore.Pagamento.Application.Services.PagarPedido
 {
-    public class PagarPedidoAppService : IRequestHandler<PagarPedidoRequest, bool>
+    public class PagarPedidoAppService : AppServiceBase, IRequestHandler<PagarPedidoRequest, bool>
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
-        public PagarPedidoAppService(
-            IMediatorHandler mediatorHandler)
+        public PagarPedidoAppService(AppServiceDependencies appServiceDependencies) : base(appServiceDependencies)
         {
-            _mediatorHandler = mediatorHandler;
         }
 
         public async Task<bool> Handle(PagarPedidoRequest request, CancellationToken cancellationToken)
@@ -27,7 +23,7 @@ namespace MarianoStore.Pagamento.Application.Services.PagarPedido
                 SucessoPagamento = true
             };
 
-            await _mediatorHandler.SendEventToQueueAsync(pagamentoRealizadoSucessoEvent);
+            await base.SendEventToQueueAsync(pagamentoRealizadoSucessoEvent);
 
             return true;
         }

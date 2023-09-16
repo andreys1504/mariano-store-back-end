@@ -1,4 +1,4 @@
-﻿using MarianoStore.Core.Mediator;
+﻿using MarianoStore.Core.ApplicationLayer.ApplicationsServices;
 using MarianoStore.Pedidos.Domain.Events;
 using MediatR;
 using System;
@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace MarianoStore.Pedidos.Application.Services.NovoPedido
 {
-    public class NovoPedidoAppService : IRequestHandler<NovoPedidoRequest, bool>
+    public class NovoPedidoAppService : AppServiceBase, IRequestHandler<NovoPedidoRequest, bool>
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
         public NovoPedidoAppService(
-            IMediatorHandler mediatorHandler)
+            AppServiceDependencies appServiceDependencies) : base(appServiceDependencies)
         {
-            _mediatorHandler = mediatorHandler;
         }
 
         public async Task<bool> Handle(NovoPedidoRequest request, CancellationToken cancellationToken)
@@ -40,7 +37,7 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
                 Quantidade = 1
             };
 
-            await _mediatorHandler.SendEventToQueueAsync(pedidoRealizadoSucessoEvent);
+            await base.SendEventToQueueAsync(pedidoRealizadoSucessoEvent);
 
             return true;
         }
