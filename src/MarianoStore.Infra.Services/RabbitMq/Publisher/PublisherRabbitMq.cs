@@ -56,7 +56,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
                 basicProperties.Priority = publishSetup.Priority.Value;
 
             basicProperties.DeliveryMode = 2;
-            basicProperties.Expiration = TimeSpan.FromHours(2).TotalMilliseconds.ToString();
+            basicProperties.Expiration = publishSetup.ExpirationMessage;
             basicProperties.MessageId = Guid.NewGuid().ToString("D");
 
 
@@ -123,7 +123,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
                 { "CurrentContext", _environmentSettings.CurrentContext }
             };
             basicProperties.DeliveryMode = 2;
-            basicProperties.Expiration = TimeSpan.FromHours(24).TotalMilliseconds.ToString();
+            basicProperties.Expiration = publishSetup.ExpirationMessage;
             basicProperties.MessageId = Guid.NewGuid().ToString("D");
 
 

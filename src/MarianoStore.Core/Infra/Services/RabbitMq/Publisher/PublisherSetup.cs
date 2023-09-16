@@ -12,7 +12,9 @@ namespace MarianoStore.Core.Infra.Services.RabbitMq.Publisher
             IModel publishChannel,
             string exchangeName,
             string routingKey,
-            byte? priority = null)
+            TimeSpan? expirationMessage = null,
+            byte? priority = null
+          )
         {
             if (typeMessage == TypeMessage.Command)
             {
@@ -43,6 +45,9 @@ namespace MarianoStore.Core.Infra.Services.RabbitMq.Publisher
             ExchangeName = exchangeName;
             RoutingKey = routingKey;
             Priority = priority;
+            ExpirationMessage = (expirationMessage == null 
+                ? (typeMessage == TypeMessage.Command ? TimeSpan.FromHours(2) : TimeSpan.FromHours(24))
+                : expirationMessage.Value).TotalMilliseconds.ToString();
         }
 
         public string ObjectFullName { get; set; }
@@ -50,5 +55,6 @@ namespace MarianoStore.Core.Infra.Services.RabbitMq.Publisher
         public string ExchangeName { get; set; }
         public string RoutingKey { get; set; }
         public byte? Priority { get; set; }
+        public string ExpirationMessage { get; set; }
     }
 }

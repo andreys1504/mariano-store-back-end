@@ -42,22 +42,9 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
             var messageInBrokerService = scope.ServiceProvider.GetRequiredService<IMessageInBrokerService>();
             var loggerService = scope.ServiceProvider.GetRequiredService<ILoggerService>();
 
-
-            var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings);
-            _sqlConnections.Add(sqlConnection);
+            SqlConnection sqlConnection = GetNewSqlConnection();
 
             IModel channel = consumerSetup.ConsumerChannel;
-            string deadLetterExchange = ConfigDeadLetterQueue(channel);
-
-            var argumentsQueue = new Dictionary<string, object>()
-            {
-                { "x-dead-letter-exchange", deadLetterExchange }
-            };
-            channel.ExchangeDeclare(exchange: consumerSetup.ExchangeName, type: ExchangeType.Direct, durable: true, autoDelete: false, arguments: null);
-            channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: argumentsQueue);
-            channel.QueueBind(queue: queueName, exchange: consumerSetup.ExchangeName, routingKey: consumerSetup.RoutingKey);
-
-            channel.BasicQos(prefetchSize: 0, prefetchCount: consumerSetup.PrefetchCount, global: false);
 
             var eventingBasicConsumer = new EventingBasicConsumer(channel);
             eventingBasicConsumer.Received += (sender, eventArgs) =>
@@ -118,6 +105,13 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
             return Task.CompletedTask;
         }
 
+        private SqlConnection GetNewSqlConnection()
+        {
+            var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings);
+            _sqlConnections.Add(sqlConnection);
+            return sqlConnection;
+        }
+
 
         //
         private (string commandName, string commandName_Name, MessageInBrokerModel messageInBroker, string serializedCommand) GetMessage(
@@ -170,18 +164,6 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
 
 
             return (commandName, commandName_Name, messageInBroker, serializedCommand);
-        }
-
-        private string ConfigDeadLetterQueue(IModel channel)
-        {
-            string exchange = "dead_letter__commands_exchange";
-            string queue = "dead_letter__commands_queue";
-
-            channel.ExchangeDeclare(exchange: exchange, type: ExchangeType.Fanout);
-            channel.QueueDeclare(queue: queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            channel.QueueBind(queue: queue, exchange: exchange, routingKey: "");
-
-            return exchange;
         }
     }
 }
