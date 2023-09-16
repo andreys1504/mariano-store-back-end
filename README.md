@@ -28,6 +28,9 @@ Obs. 2: MarianoStore.Core, MarianoStore.Infra.Services e MarianoStore.Ioc, são 
 
 ### Execução ambiente Local
 
+-  Executar:
+docker volume create --driver local --opt type=none --opt device=PATH --opt o=bind mariano-store--sql_data
+docker volume create --driver local --opt type=none --opt device=PATH --opt o=bind mariano-store--sql_log
 -  Executar: docker-compose up -d
 -  Criar as base junto ao SQL Server: Catalogo_MarianoStore, Notificacoes_MarianoStore, Pagamento_MarianoStore e Pedidos_MarianoStore
 -  Criar tabelas base. Ver: ./sql-server/TabelasBase.sql
