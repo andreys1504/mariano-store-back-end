@@ -13,7 +13,7 @@ namespace MarianoStore.Core.ApplicationLayer.EventsHandlers
             _dependencies = dependencies;
         }
 
-        public async Task SendCommandToHandlerAsync(Command @request)
+        protected async Task SendCommandToHandlerAsync(Command @request)
         {
             await _dependencies.MediatorHandler.SendCommandToHandlerAsync(@request);
         }

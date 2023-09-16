@@ -13,7 +13,7 @@ namespace MarianoStore.Core.ApplicationLayer.ApplicationsServices
             _dependencies = dependencies;
         }
 
-        public async Task SendEventToQueueAsync(Event @event)
+        protected async Task SendEventToQueueAsync(Event @event)
         {
             await _dependencies.MediatorHandler.SendEventToQueueAsync(@event);
         }

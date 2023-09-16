@@ -12,12 +12,12 @@ namespace MarianoStore.Core.Application.AspNet.ControllerBase
             _dependencies = dependencies;
         }
 
-        public async Task SendCommandToQueueAsync(Command @request)
+        protected async Task SendCommandToQueueAsync(Command @request)
         {
             await _dependencies.MediatorHandler.SendCommandToQueueAsync(@request);
         }
 
-        public async Task SendCommandToHandlerAsync(object @request)
+        protected async Task SendCommandToHandlerAsync(object @request)
         {
             await _dependencies.MediatorHandler.SendCommandToHandlerAsync(@request);
         }
