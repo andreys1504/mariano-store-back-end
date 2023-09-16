@@ -1,13 +1,14 @@
-﻿using MarianoStore.Pedidos.Domain.Events;
+﻿using MarianoStore.Core.ApplicationLayer.EventsHandlers;
+using MarianoStore.Pedidos.Domain.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarianoStore.Pedidos.Application.EventsHandlers.PedidoRealizadoSucesso
 {
-    public class PedidoRealizadoSucessoEventHandler : INotificationHandler<PedidoRealizadoSucessoEvent>
+    public class PedidoRealizadoSucessoEventHandler : EventHandlerBase, INotificationHandler<PedidoRealizadoSucessoEvent>
     {
-        public PedidoRealizadoSucessoEventHandler()
+        public PedidoRealizadoSucessoEventHandler(EventHandlerDependencies eventHandlerDependencies) : base(eventHandlerDependencies)
         {
         }
 
