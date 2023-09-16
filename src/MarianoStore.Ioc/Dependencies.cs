@@ -29,7 +29,7 @@ namespace MarianoStore.Ioc
             services.AddSingleton(environmentSettings);
 
             //Infra.Services
-            Infra.Services.Dependencies.Register(services);
+            Infra.Services.Dependencies.Register(services, environmentSettings);
         }
 
         public static void RegisterDependenciesRabbitMq(

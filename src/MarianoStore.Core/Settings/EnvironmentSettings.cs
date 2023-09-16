@@ -1,4 +1,5 @@
 ﻿using MarianoStore.Core.Settings.RabbitMq;
+using MarianoStore.Core.Settings.ServicosMarianoStore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace MarianoStore.Core.Settings
         public string DomainLayer { get; set; }
         public string SqlServerConnectionString { get; set; }
         public RabbitMqSettings RabbitMq { get; set; } = new RabbitMqSettings();
+        public ServicosMarianoStoreSettings ServicosMarianoStore { get; set; } = new ServicosMarianoStoreSettings();
 
         public void GetConfigurationsInEnvironment(IConfiguration config)
         {

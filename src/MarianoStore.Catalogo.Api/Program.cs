@@ -23,7 +23,7 @@ namespace MarianoStore.Catalogo.Api
             EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
                 builder.Configuration, 
                 projectName: "Catalogo.Api", 
-                currentContext: "Catalogo", 
+                currentContext: Contexts.Catalogo.ToString(), 
                 applicationLayer: "MarianoStore.Catalogo.Application",
                 domainLayer: "MarianoStore.Catalogo.Domain");
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);

@@ -23,7 +23,7 @@ namespace MarianoStore.Pedidos.Api
             EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
                 builder.Configuration, 
                 projectName: "Pedidos.Api", 
-                currentContext: "Pedidos", 
+                currentContext: Contexts.Pedidos.ToString(), 
                 applicationLayer: "MarianoStore.Pedidos.Application",
                 domainLayer: "MarianoStore.Pedidos.Domain");
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);

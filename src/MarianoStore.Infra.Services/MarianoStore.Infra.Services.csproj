@@ -6,10 +6,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.0.151" />
+		<PackageReference Include="Refit" Version="7.0.0" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ServicosMarianoStore\Catalogo\" />
 	</ItemGroup>
 
 </Project>

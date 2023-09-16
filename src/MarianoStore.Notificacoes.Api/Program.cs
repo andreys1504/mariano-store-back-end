@@ -23,7 +23,7 @@ namespace MarianoStore.Notificacoes.Api
             EnvironmentSettings environmentSettings = ObjectEnvironmentSettings.Create(
                 builder.Configuration,
                 projectName: "Notificacoes.Api",
-                currentContext: "Notificacoes",
+                currentContext: Contexts.Notificacoes.ToString(),
                 applicationLayer: "MarianoStore.Notificacoes.Application",
                 domainLayer: null);
             Ioc.ApplicationDependencies.Register(builder.Services, environmentSettings);
