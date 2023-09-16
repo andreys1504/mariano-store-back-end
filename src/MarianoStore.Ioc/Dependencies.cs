@@ -16,6 +16,8 @@ namespace MarianoStore.Ioc
             services.AddHttpClient();
 
             //Core
+            // .Core.Application
+            Core.Application.AspNet.ControllerBase.Dependencies.Register(services);
             // .Core.ApplicationLayer
             Core.ApplicationLayer.ApplicationsServices.Dependencies.Register(services);
             Core.ApplicationLayer.EventsHandlers.Dependencies.Register(services);

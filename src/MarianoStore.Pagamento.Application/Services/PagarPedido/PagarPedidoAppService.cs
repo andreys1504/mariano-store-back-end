@@ -8,7 +8,7 @@ namespace MarianoStore.Pagamento.Application.Services.PagarPedido
 {
     public class PagarPedidoAppService : AppServiceBase, IRequestHandler<PagarPedidoRequest, bool>
     {
-        public PagarPedidoAppService(AppServiceDependencies appServiceDependencies) : base(appServiceDependencies)
+        public PagarPedidoAppService(AppServiceDependencies dependencies) : base(dependencies)
         {
         }
 

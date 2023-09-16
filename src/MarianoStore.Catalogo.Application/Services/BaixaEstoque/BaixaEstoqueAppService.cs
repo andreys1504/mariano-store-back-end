@@ -7,7 +7,7 @@ namespace MarianoStore.Catalogo.Application.Services.BaixaEstoque
 {
     public class BaixaEstoqueAppService : AppServiceBase, IRequestHandler<BaixaEstoqueRequest, bool>
     {
-        public BaixaEstoqueAppService(AppServiceDependencies appServiceDependencies) : base(appServiceDependencies)
+        public BaixaEstoqueAppService(AppServiceDependencies dependencies) : base(dependencies)
         {
         }
 

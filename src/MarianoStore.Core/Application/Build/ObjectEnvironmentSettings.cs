@@ -1,7 +1,7 @@
 ﻿using MarianoStore.Core.Settings;
 using Microsoft.Extensions.Configuration;
 
-namespace MarianoStore.Core.BuildApplications.Build
+namespace MarianoStore.Core.Application.Build
 {
     public static class ObjectEnvironmentSettings
     {

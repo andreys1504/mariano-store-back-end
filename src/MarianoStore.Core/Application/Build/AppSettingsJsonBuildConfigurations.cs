@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace MarianoStore.Core.BuildApplications.Build
+namespace MarianoStore.Core.Application.Build
 {
     public static class AppSettingsJsonBuildConfigurations
     {

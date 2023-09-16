@@ -1,4 +1,4 @@
-using MarianoStore.Core.Mediator;
+using MarianoStore.Core.Application.AspNet.ControllerBase;
 using MarianoStore.Pedidos.Application.Services.NovoPedido;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -7,14 +7,10 @@ namespace MarianoStore.Pedidos.Api.Controllers
 {
     [ApiController]
     [Route("pedido")]
-    public class PedidoController : ControllerBase
+    public class PedidoController : ApiControllerBase
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
-        public PedidoController(
-            IMediatorHandler mediatorHandler)
+        public PedidoController(ApiControllerDependencies dependencies) : base(dependencies)
         {
-            _mediatorHandler = mediatorHandler;
         }
 
         [HttpPost]
@@ -22,7 +18,7 @@ namespace MarianoStore.Pedidos.Api.Controllers
         {
             var request = new NovoPedidoRequest();
 
-            await _mediatorHandler.SendCommandToQueueAsync(request);
+            await base.SendCommandToQueueAsync(request);
 
             return Ok();
         }

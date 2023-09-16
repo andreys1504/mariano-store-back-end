@@ -10,7 +10,7 @@ namespace MarianoStore.Pagamento.Application.IntegrationEvents.EventsHandlers.Pe
     public class PedidoRealizadoSucessoEventHandler : EventHandlerBase, INotificationHandler<PedidoRealizadoSucessoEvent>
     {
         public PedidoRealizadoSucessoEventHandler(
-            EventHandlerDependencies eventHandlerDependencies) : base(eventHandlerDependencies)
+            EventHandlerDependencies dependencies) : base(dependencies)
         {
         }
 

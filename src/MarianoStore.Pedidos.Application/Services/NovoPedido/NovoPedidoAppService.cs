@@ -10,7 +10,7 @@ namespace MarianoStore.Pedidos.Application.Services.NovoPedido
     public class NovoPedidoAppService : AppServiceBase, IRequestHandler<NovoPedidoRequest, bool>
     {
         public NovoPedidoAppService(
-            AppServiceDependencies appServiceDependencies) : base(appServiceDependencies)
+            AppServiceDependencies dependencies) : base(dependencies)
         {
         }
 

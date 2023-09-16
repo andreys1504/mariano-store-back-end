@@ -1,4 +1,4 @@
-using MarianoStore.Core.BuildApplications.Build;
+using MarianoStore.Core.Application.Build;
 using MarianoStore.Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

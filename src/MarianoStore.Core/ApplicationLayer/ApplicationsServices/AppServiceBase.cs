@@ -5,17 +5,17 @@ namespace MarianoStore.Core.ApplicationLayer.ApplicationsServices
 {
     public abstract class AppServiceBase
     {
-        private readonly AppServiceDependencies _appServiceDependencies;
+        private readonly AppServiceDependencies _dependencies;
 
         public AppServiceBase(
-            AppServiceDependencies appServiceDependencies)
+            AppServiceDependencies dependencies)
         {
-            _appServiceDependencies = appServiceDependencies;
+            _dependencies = dependencies;
         }
 
         public async Task SendEventToQueueAsync(Event @event)
         {
-            await _appServiceDependencies.MediatorHandler.SendEventToQueueAsync(@event);
+            await _dependencies.MediatorHandler.SendEventToQueueAsync(@event);
         }
     }
 }

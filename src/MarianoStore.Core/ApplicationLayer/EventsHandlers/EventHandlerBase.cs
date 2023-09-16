@@ -5,17 +5,17 @@ namespace MarianoStore.Core.ApplicationLayer.EventsHandlers
 {
     public abstract class EventHandlerBase
     {
-        private readonly EventHandlerDependencies _eventHandlerDependencies;
+        private readonly EventHandlerDependencies _dependencies;
 
         public EventHandlerBase(
-            EventHandlerDependencies eventHandlerDependencies)
+            EventHandlerDependencies dependencies)
         {
-            _eventHandlerDependencies = eventHandlerDependencies;
+            _dependencies = dependencies;
         }
 
         public async Task SendCommandToHandlerAsync(Command @request)
         {
-            await _eventHandlerDependencies.MediatorHandler.SendCommandToHandlerAsync(@request);
+            await _dependencies.MediatorHandler.SendCommandToHandlerAsync(@request);
         }
     }
 }
