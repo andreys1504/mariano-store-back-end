@@ -6,7 +6,7 @@ namespace MarianoStore.Notificacoes.Application.IntegrationEvents.EventsHandlers
 {
     public class PedidoRealizadoSucessoEventHandler : EventHandlerBase, INotificationHandler<PedidoRealizadoSucessoEvent>
     {
-        public PedidoRealizadoSucessoEventHandler(EventHandlerDependencies dependencies) : base(dependencies)
+        public PedidoRealizadoSucessoEventHandler(DependenciesEventHandlerBase dependencies) : base(dependencies)
         {
         }
 

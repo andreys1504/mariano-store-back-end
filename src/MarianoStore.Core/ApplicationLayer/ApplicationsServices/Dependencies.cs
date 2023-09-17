@@ -6,7 +6,7 @@ namespace MarianoStore.Core.ApplicationLayer.ApplicationsServices
     {
         public static void Register(IServiceCollection services)
         {
-            services.AddTransient<AppServiceDependencies, AppServiceDependencies>();
+            services.AddTransient<DependenciesAppServiceBase, DependenciesAppServiceBase>();
         }
     }
 }

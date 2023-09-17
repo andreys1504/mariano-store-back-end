@@ -7,7 +7,10 @@ namespace MarianoStore.Core.Ioc
 {
     public static partial class RetryPoliciesExtensions
     {
-        public static IServiceCollection AddSingletonWithRetry<TService, TKnowException>(this IServiceCollection services, Func<IServiceProvider, TService> implementationFactory)
+        public static IServiceCollection AddSingletonWithRetry<TService, TKnowException>(
+            this IServiceCollection services, 
+            Func<IServiceProvider, TService> implementationFactory,
+            int retryCount)
             where TKnowException : Exception
             where TService : class
         {
@@ -15,7 +18,7 @@ namespace MarianoStore.Core.Ioc
             {
                 TService returnValue = default;
 
-                BuildPolicy<TKnowException>().Execute(() =>
+                BuildPolicy<TKnowException>(retryCount: retryCount).Execute(() =>
                 {
                     returnValue = implementationFactory(serviceProvider);
                 });
@@ -25,7 +28,10 @@ namespace MarianoStore.Core.Ioc
             });
         }
 
-        public static IServiceCollection AddTransientWithRetry<TService, TKnowException>(this IServiceCollection services, Func<IServiceProvider, TService> implementationFactory)
+        public static IServiceCollection AddTransientWithRetry<TService, TKnowException>(
+            this IServiceCollection services, 
+            Func<IServiceProvider, TService> implementationFactory,
+            int retryCount)
             where TKnowException : Exception
             where TService : class
         {
@@ -33,7 +39,7 @@ namespace MarianoStore.Core.Ioc
             {
                 TService returnValue = default;
 
-                BuildPolicy<TKnowException>().Execute(() =>
+                BuildPolicy<TKnowException>(retryCount: retryCount).Execute(() =>
                 {
                     returnValue = implementationFactory(serviceProvider);
                 });
@@ -45,7 +51,7 @@ namespace MarianoStore.Core.Ioc
 
 
         //
-        private static RetryPolicy BuildPolicy<TKnowException>(int retryCount = 5) where TKnowException : Exception
+        private static RetryPolicy BuildPolicy<TKnowException>(int retryCount) where TKnowException : Exception
         {
             return Policy
                 .Handle<TKnowException>()

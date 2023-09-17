@@ -10,7 +10,7 @@ namespace MarianoStore.Pedidos.Api.Controllers
     [Route("pedido")]
     public class PedidoController : ApiControllerBase
     {
-        public PedidoController(ApiControllerDependencies dependencies) : base(dependencies)
+        public PedidoController(DependenciesApiControllerBase dependencies) : base(dependencies)
         {
         }
 
@@ -27,6 +27,7 @@ namespace MarianoStore.Pedidos.Api.Controllers
         [HttpGet("{idPedido}")]
         public IActionResult Pedido(Guid idPedido)
         {
+            //throw new Exception();
             return Ok(new
             {
                 IdPedido = idPedido,

@@ -6,7 +6,7 @@ namespace MarianoStore.Core.ApplicationLayer.EventsHandlers
     {
         public static void Register(IServiceCollection services)
         {
-            services.AddTransient<EventHandlerDependencies, EventHandlerDependencies>();
+            services.AddTransient<DependenciesEventHandlerBase, DependenciesEventHandlerBase>();
         }
     }
 }

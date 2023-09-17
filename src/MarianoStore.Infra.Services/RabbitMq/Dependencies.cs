@@ -20,7 +20,7 @@ namespace MarianoStore.Infra.Services.RabbitMq
             IList<PublisherSetup> publishersSetup,
             IList<ConsumerSetup> consumersSetup)
         {
-            services.AddSingletonWithRetry<IConnection, BrokerUnreachableException>(serviceProvider => connection);
+            services.AddSingletonWithRetry<IConnection, BrokerUnreachableException>(serviceProvider => connection, retryCount: 3);
 
             if (publishersSetup != null)
                 services.AddSingleton(publishersSetup);

@@ -12,19 +12,19 @@ namespace MarianoStore.Pagamento.Application.IntegrationEvents.EventsHandlers.Pe
 {
     public class PedidoRealizadoSucessoEventHandler : EventHandlerBase, INotificationHandler<PedidoRealizadoSucessoEvent>
     {
-        private readonly IPedido_PedidosStoreService _pedido_PedidosStoreService;
+        private readonly IPedido_PedidosMarianoStoreService _pedido_PedidosMarianoStoreService;
 
         public PedidoRealizadoSucessoEventHandler(
-            IPedido_PedidosStoreService pedido_PedidosStoreService,
-            EventHandlerDependencies dependencies) : base(dependencies)
+            IPedido_PedidosMarianoStoreService pedido_PedidosMarianoStoreService,
+            DependenciesEventHandlerBase dependencies) : base(dependencies)
         {
-            _pedido_PedidosStoreService = pedido_PedidosStoreService;
+            _pedido_PedidosMarianoStoreService = pedido_PedidosMarianoStoreService;
         }
 
         public async Task Handle(PedidoRealizadoSucessoEvent notification, CancellationToken cancellationToken)
         {
             var idPedido = Guid.NewGuid();
-            DadosPedidoModel pedido = await _pedido_PedidosStoreService.DadosPedido(idPedido: idPedido);
+            DadosPedidoModel pedido = await _pedido_PedidosMarianoStoreService.DadosPedido(idPedido: idPedido);
 
 
             var pagarPedidoRequest = new PagarPedidoRequest

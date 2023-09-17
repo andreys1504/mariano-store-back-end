@@ -1,10 +1,10 @@
 ﻿using MarianoStore.Core.Mediator;
 
-namespace MarianoStore.Core.ApplicationLayer.ApplicationsServices
+namespace MarianoStore.Core.Application.AspNet.ControllerBase
 {
-    public class AppServiceDependencies
+    public class DependenciesApiControllerBase
     {
-        public AppServiceDependencies(
+        public DependenciesApiControllerBase(
             IMediatorHandler mediatorHandler)
         {
             MediatorHandler = mediatorHandler;

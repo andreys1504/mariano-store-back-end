@@ -6,7 +6,7 @@ namespace MarianoStore.Notificacoes.Application.EventsHandlers.PagamentoRealizad
 {
     public class PagamentoRealizadoSucessoEventHandler : EventHandlerBase, INotificationHandler<PagamentoRealizadoSucessoEvent>
     {
-        public PagamentoRealizadoSucessoEventHandler(EventHandlerDependencies dependencies) 
+        public PagamentoRealizadoSucessoEventHandler(DependenciesEventHandlerBase dependencies) 
             : base(dependencies)
         {
         }

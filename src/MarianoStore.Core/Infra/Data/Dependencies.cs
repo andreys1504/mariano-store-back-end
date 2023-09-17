@@ -12,7 +12,7 @@ namespace MarianoStore.Core.Infra.Data
             services.AddTransientWithRetry<SqlConnection, SqlException>(serviceProvider =>
             {
                 return ConnectionDatabase.GetConnection(environmentSettings);
-            });
+            }, retryCount: 5);
         }
     }
 }

@@ -5,9 +5,9 @@ namespace MarianoStore.Core.Application.AspNet.ControllerBase
 {
     public abstract class ApiControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
-        private readonly ApiControllerDependencies _dependencies;
+        private readonly DependenciesApiControllerBase _dependencies;
 
-        public ApiControllerBase(ApiControllerDependencies dependencies)
+        public ApiControllerBase(DependenciesApiControllerBase dependencies)
         {
             _dependencies = dependencies;
         }

@@ -5,10 +5,10 @@ namespace MarianoStore.Core.ApplicationLayer.EventsHandlers
 {
     public abstract class EventHandlerBase
     {
-        private readonly EventHandlerDependencies _dependencies;
+        private readonly DependenciesEventHandlerBase _dependencies;
 
         public EventHandlerBase(
-            EventHandlerDependencies dependencies)
+            DependenciesEventHandlerBase dependencies)
         {
             _dependencies = dependencies;
         }

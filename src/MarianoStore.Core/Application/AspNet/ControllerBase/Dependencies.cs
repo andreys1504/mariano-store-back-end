@@ -6,7 +6,7 @@ namespace MarianoStore.Core.Application.AspNet.ControllerBase
     {
         public static void Register(IServiceCollection services)
         {
-            services.AddTransient<ApiControllerDependencies, ApiControllerDependencies>();
+            services.AddTransient<DependenciesApiControllerBase, DependenciesApiControllerBase>();
         }
     }
 }
