@@ -14,4 +14,5 @@ CREATE TABLE [MessageInBroker]
 	,[IsEvent] BIT NOT NULL
 	,[OriginalContext] VARCHAR(100) NULL
 	,[MessageIdReference] INT NULL
+	,[MessageInBroker] DATETIMEOFFSET NULL
 );

@@ -8,15 +8,14 @@ namespace MarianoStore.Infra.Services.Messages
     public class MessageInBrokerService : IMessageInBrokerService
     {
         public MessageInBrokerModel CreateMessage(
-            SqlConnection sqlConnection,
-            SqlTransaction sqlTransaction,
             string name,
             string currentContext,
             string body,
             bool isEvent,
             string originalContext,
             int? messageIdReference,
-            bool processed = false)
+            SqlConnection sqlConnection,
+            SqlTransaction sqlTransaction)
         {
             string sql =
                 $@"
@@ -36,6 +35,7 @@ namespace MarianoStore.Infra.Services.Messages
                         ,[IsEvent]
                         ,[OriginalContext]
                         ,[MessageIdReference]
+                        ,[MessageInBroker]
                     FROM
                         [MessageInBroker]
                     WHERE
@@ -57,9 +57,9 @@ namespace MarianoStore.Infra.Services.Messages
         }
 
         public MessageInBrokerModel GetMessageByMessageIdReference(
+            int messageIdReference,
             SqlConnection sqlConnection,
-            SqlTransaction sqlTransaction,
-            int messageIdReference)
+            SqlTransaction sqlTransaction)
         {
             string sql =
                 @"
@@ -74,6 +74,7 @@ namespace MarianoStore.Infra.Services.Messages
                         ,[IsEvent]
                         ,[OriginalContext]
                         ,[MessageIdReference]
+                        ,[MessageInBroker]
                     FROM
                         [MessageInBroker]
                     WHERE
@@ -111,6 +112,20 @@ namespace MarianoStore.Infra.Services.Messages
                     UPDATE [MessageInBroker]
                         SET
                             [Num] = [Num] + 1
+                        WHERE
+                            [MessageId] = @MessageId;
+                ";
+
+            sqlConnection.Execute(sql: sql, param: message, transaction: sqlTransaction);
+        }
+
+        public void MarkAsMessageInBroker(MessageInBrokerModel message, SqlConnection sqlConnection, SqlTransaction sqlTransaction)
+        {
+            string sql =
+                @"
+                    UPDATE [MessageInBroker]
+                        SET
+                            [MessageInBroker] = GETUTCDATE()
                         WHERE
                             [MessageId] = @MessageId;
                 ";

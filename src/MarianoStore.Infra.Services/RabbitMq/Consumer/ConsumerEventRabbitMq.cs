@@ -154,20 +154,20 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                     && currentContextMessage != _environmentSettings.CurrentContext)
                 {
                     MessageInBrokerModel messageReference = messageInBrokerService.GetMessageByMessageIdReference(
+                        messageIdReference: messageInBroker.MessageId,
                         sqlConnection: sqlConnection,
-                        sqlTransaction: sqlTransaction,
-                        messageIdReference: messageInBroker.MessageId);
+                        sqlTransaction: sqlTransaction);
 
                     if (messageReference == null)
                         messageInBroker = messageInBrokerService.CreateMessage(
-                            sqlConnection: sqlConnection,
-                            sqlTransaction: sqlTransaction,
                             name: messageInBroker.Name,
                             currentContext: _environmentSettings.CurrentContext,
                             body: serializedEvent,
                             isEvent: true,
                             originalContext: messageInBroker.CurrentContext,
-                            messageIdReference: messageInBroker.MessageId);
+                            messageIdReference: messageInBroker.MessageId,
+                            sqlConnection: sqlConnection,
+                            sqlTransaction: sqlTransaction);
                     else
                         messageInBroker = messageReference;
                 }

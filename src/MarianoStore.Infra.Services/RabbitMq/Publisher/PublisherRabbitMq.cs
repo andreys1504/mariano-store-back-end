@@ -34,10 +34,38 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
 
+            var messageInBrokerService = scope.ServiceProvider.GetService<IMessageInBrokerService>();
+
+            MessageInBrokerModel messageInBroker = null;
+
+            #region CreateMessage
+
+            using (var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings))
+            {
+                try
+                {
+                    messageInBroker = messageInBrokerService.CreateMessage(
+                        name: @command.GetType().FullName,
+                        currentContext: _environmentSettings.CurrentContext,
+                        body: JsonConvert.SerializeObject(@command),
+                        isEvent: false,
+                        originalContext: null,
+                        messageIdReference: null,
+                        sqlConnection: sqlConnection,
+                        sqlTransaction: null
+                    );
+                }
+                catch
+                {
+                    return;
+                }
+            }
+
+            #endregion
+
+
             var publishersSetup = scope.ServiceProvider.GetService<IList<PublisherSetup>>();
             PublisherSetup publishSetup = publishersSetup.First(publish => publish.ObjectFullName == @command.GetType().FullName);
-
-            var messageInBrokerService = scope.ServiceProvider.GetService<IMessageInBrokerService>();
             var loggerService = scope.ServiceProvider.GetService<ILoggerService>();
 
             IModel channel = publishSetup.PublishChannel;
@@ -59,23 +87,11 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
             basicProperties.Expiration = publishSetup.ExpirationMessage;
             basicProperties.MessageId = Guid.NewGuid().ToString("D");
 
-
             using (var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings))
             {
                 using SqlTransaction sqlTransaction = sqlConnection.BeginTransaction();
                 try
                 {
-                    MessageInBrokerModel messageInBroker = messageInBrokerService.CreateMessage(
-                        sqlConnection: sqlConnection,
-                        sqlTransaction: sqlTransaction,
-                        name: @command.GetType().FullName,
-                        currentContext: _environmentSettings.CurrentContext,
-                        body: JsonConvert.SerializeObject(@command),
-                        isEvent: false,
-                        originalContext: null,
-                        messageIdReference: null
-                    );
-
                     string postMessage = JsonConvert.SerializeObject(messageInBroker);
                     byte[] body = Encoding.UTF8.GetBytes(postMessage);
 
@@ -89,6 +105,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
 
                     channel.WaitForConfirmsOrDie(TimeSpan.FromSeconds(5));
 
+                    messageInBrokerService.MarkAsMessageInBroker(messageInBroker, sqlConnection: sqlConnection, sqlTransaction: sqlTransaction);
                     sqlTransaction.Commit();
                 }
                 catch (Exception ex)
@@ -105,10 +122,38 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
 
+            var messageInBrokerService = scope.ServiceProvider.GetService<IMessageInBrokerService>();
+
+            MessageInBrokerModel messageInBroker = null;
+
+            #region CreateMessage
+
+            using (var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings))
+            {
+                try
+                {
+                    messageInBroker = messageInBrokerService.CreateMessage(
+                        name: @event.GetType().FullName,
+                        currentContext: _environmentSettings.CurrentContext,
+                        body: JsonConvert.SerializeObject(@event),
+                        isEvent: true,
+                        originalContext: null,
+                        messageIdReference: null,
+                        sqlConnection: sqlConnection,
+                        sqlTransaction: null
+                    );
+                }
+                catch
+                {
+                    return;
+                }
+            }
+
+            #endregion
+
+
             var publishersSetup = scope.ServiceProvider.GetService<IList<PublisherSetup>>();
             PublisherSetup publishSetup = publishersSetup.First(publish => publish.ObjectFullName == @event.GetType().FullName);
-
-            var messageInBrokerService = scope.ServiceProvider.GetService<IMessageInBrokerService>();
             var loggerService = scope.ServiceProvider.GetService<ILoggerService>();
 
             IModel channel = publishSetup.PublishChannel;
@@ -126,25 +171,12 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
             basicProperties.Expiration = publishSetup.ExpirationMessage;
             basicProperties.MessageId = Guid.NewGuid().ToString("D");
 
-
             using (var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings))
             {
                 using SqlTransaction sqlTransaction = sqlConnection.BeginTransaction();
                 try
                 {
-                    MessageInBrokerModel message = messageInBrokerService.CreateMessage(
-                        sqlConnection: sqlConnection,
-                        sqlTransaction: sqlTransaction,
-                        name: @event.GetType().FullName,
-                        currentContext: _environmentSettings.CurrentContext,
-                        body: JsonConvert.SerializeObject(@event),
-                        isEvent: true,
-                        originalContext: null,
-                        messageIdReference: null,
-                        processed: true
-                    );
-
-                    string postMessage = JsonConvert.SerializeObject(message);
+                    string postMessage = JsonConvert.SerializeObject(messageInBroker);
                     byte[] body = Encoding.UTF8.GetBytes(postMessage);
 
                     channel.BasicPublish(
@@ -157,6 +189,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Publisher
 
                     channel.WaitForConfirmsOrDie(TimeSpan.FromSeconds(5));
 
+                    messageInBrokerService.MarkAsMessageInBroker(messageInBroker, sqlConnection: sqlConnection, sqlTransaction: sqlTransaction);
                     sqlTransaction.Commit();
                 }
                 catch (Exception ex)

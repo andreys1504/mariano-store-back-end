@@ -23,5 +23,6 @@ namespace MarianoStore.Core.Messages.MessageInBroker.Models
         public bool IsEvent { get; set; }
         public string OriginalContext { get; set; }
         public int? MessageIdReference { get; set; }
+        public DateTimeOffset? MessageInBroker { get; set; }
     }
 }

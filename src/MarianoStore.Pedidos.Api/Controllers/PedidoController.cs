@@ -27,7 +27,6 @@ namespace MarianoStore.Pedidos.Api.Controllers
         [HttpGet("{idPedido}")]
         public IActionResult Pedido(Guid idPedido)
         {
-            //throw new Exception();
             return Ok(new
             {
                 IdPedido = idPedido,
