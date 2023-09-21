@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Commands
 {
     public class ConsumerCommandsDefault : BackgroundService
     {
@@ -25,16 +25,16 @@ namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
             var consumerCommandRabbitMq = scope1.ServiceProvider.GetService<IConsumerCommandRabbitMq>();
             await consumerCommandRabbitMq.ConsumerCommandAsync(
                 queueName: QueuesSettings.CommandsQueue,
-                consumer: (serializedCommand, commandName, commandName_Name) =>
+                consumer: (serializedCommand, commandName, commandName_FullName) =>
                 {
-                    if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName)) return;
+                    if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName_FullName)) return;
 
 
                     using IServiceScope scope = _serviceProvider.CreateScope();
                     var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
 
 
-                    mediatorHandler.SendCommandObjectToHandlerAsync(serializedCommand: serializedCommand, commandName: commandName).Wait();
+                    mediatorHandler.SendCommandObjectToHandlerAsync(serializedCommand: serializedCommand, commandName: commandName_FullName).Wait();
                 });
         }
     }

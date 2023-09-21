@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Events
 {
     public class ConsumerEventsDefault : BackgroundService
     {
@@ -25,16 +25,16 @@ namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events
             var consumerEventRabbitMq = scope1.ServiceProvider.GetService<IConsumerEventRabbitMq>();
             await consumerEventRabbitMq.ConsumerEventAsync(
                 queueName: QueuesSettings.EventsQueue,
-                consumer: (serializedEvent, eventName, eventName_Name) =>
+                consumer: (serializedEvent, eventName, eventName_FullName) =>
                 {
-                    if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
+                    if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName_FullName)) return;
 
 
                     using IServiceScope scope = _serviceProvider.CreateScope();
                     var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
 
 
-                    mediatorHandler.SendEventObjectToHandlerAsync(serializedEvent: serializedEvent, eventName: eventName).Wait();
+                    mediatorHandler.SendEventObjectToHandlerAsync(serializedEvent: serializedEvent, eventName: eventName_FullName).Wait();
                 });
         }
     }

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
+		<ProjectReference Include="..\MarianoStore.Ioc\MarianoStore.Ioc.csproj" />
+		<ProjectReference Include="..\MarianoStore.Pedidos.Ioc\MarianoStore.Pedidos.Ioc.csproj" />
+	</ItemGroup>
+
+</Project>

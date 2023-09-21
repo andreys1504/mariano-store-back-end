@@ -4,7 +4,7 @@ using MarianoStore.Core.Messages;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Commands
 {
     public static class ConsumersConfig
     {

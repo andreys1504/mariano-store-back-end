@@ -1,8 +1,7 @@
 using MarianoStore.Core.Settings;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace MarianoStore.Pedidos.Api
+namespace MarianoStore.Pedidos.Worker.PublishOnBroker
 {
     public class Program
     {
@@ -20,28 +19,16 @@ namespace MarianoStore.Pedidos.Api
         private static EnvironmentSettings BuildApplication(WebApplicationBuilder builder)
         {
             EnvironmentSettings environmentSettings = Ioc.ObjectEnvironmentSettings.Create(
-                builder.Configuration, 
-                projectName: "Pedidos.Api");
+                builder.Configuration,
+                projectName: "Pedidos.Worker.PublishOnBroker");
             ApplicationDependencies.Register(builder.Services, environmentSettings);
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             return environmentSettings;
         }
 
         private static void PostBuildApplication(WebApplication app, EnvironmentSettings environmentSettings)
         {
-            if (environmentSettings.CurrentEnvironment != Environment.Production)
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
             app.Run();
         }
     }

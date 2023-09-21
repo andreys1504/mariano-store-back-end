@@ -1,13 +1,32 @@
 ﻿using Dapper;
+using MarianoStore.Core.Messages;
 using MarianoStore.Core.Messages.MessageInBroker;
 using MarianoStore.Core.Messages.MessageInBroker.Models;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace MarianoStore.Infra.Services.Messages
 {
     public class MessageInBrokerService : IMessageInBrokerService
     {
+        private readonly string _fields =
+            @"
+                [MessageId]
+                ,[FullName]
+                ,[Name]
+                ,[CurrentContext]
+                ,[Body]
+                ,[Stored]
+                ,[Processed]
+                ,[Num]
+                ,[IsEvent]
+                ,[OriginalContext]
+                ,[MessageIdReference]
+                ,[MessageInBroker]
+            ";
+
         public MessageInBrokerModel CreateMessage(
+            string fullName,
             string name,
             string currentContext,
             string body,
@@ -20,22 +39,12 @@ namespace MarianoStore.Infra.Services.Messages
             string sql =
                 $@"
                     INSERT INTO [MessageInBroker] 
-                        ([Name], [CurrentContext], [Body], [Stored], [Num], [IsEvent], [OriginalContext], [MessageIdReference])
+                        ([FullName], [Name], [CurrentContext], [Body], [Stored], [Num], [IsEvent], [OriginalContext], [MessageIdReference])
                     VALUES 
-                        (@Name, @CurrentContext, @Body, GETUTCDATE(), 0, @IsEvent, @OriginalContext, @MessageIdReference);
+                        (@FullName, @Name, @CurrentContext, @Body, GETUTCDATE(), 0, @IsEvent, @OriginalContext, @MessageIdReference);
 
                     SELECT
-                        [MessageId]
-                        ,[Name]
-                        ,[CurrentContext]
-                        ,[Body]
-                        ,[Stored]
-                        ,[Processed]
-                        ,[Num]
-                        ,[IsEvent]
-                        ,[OriginalContext]
-                        ,[MessageIdReference]
-                        ,[MessageInBroker]
+                        {_fields}
                     FROM
                         [MessageInBroker]
                     WHERE
@@ -46,6 +55,7 @@ namespace MarianoStore.Infra.Services.Messages
                 sql: sql,
                 param: new
                 {
+                    FullName = fullName,
                     Name = name,
                     CurrentContext = currentContext,
                     Body = body,
@@ -56,25 +66,39 @@ namespace MarianoStore.Infra.Services.Messages
                 transaction: sqlTransaction);
         }
 
+        public MessageInBrokerModel GetMessageByMessageId(
+            int messageId,
+            SqlConnection sqlConnection,
+            SqlTransaction sqlTransaction)
+        {
+            string sql =
+                $@"
+                    SELECT
+                        {_fields}
+                    FROM
+                        [MessageInBroker]
+                    WHERE
+                        [MessageId] = @MessageId;
+                ";
+
+            return sqlConnection.QueryFirstOrDefault<MessageInBrokerModel>(
+                sql: sql,
+                param: new
+                {
+                    MessageId = messageId
+                },
+                transaction: sqlTransaction);
+        }
+
         public MessageInBrokerModel GetMessageByMessageIdReference(
             int messageIdReference,
             SqlConnection sqlConnection,
             SqlTransaction sqlTransaction)
         {
             string sql =
-                @"
+                $@"
                     SELECT
-                        [MessageId]
-                        ,[Name]
-                        ,[CurrentContext]
-                        ,[Body]
-                        ,[Stored]
-                        ,[Processed]
-                        ,[Num]
-                        ,[IsEvent]
-                        ,[OriginalContext]
-                        ,[MessageIdReference]
-                        ,[MessageInBroker]
+                        {_fields}
                     FROM
                         [MessageInBroker]
                     WHERE
@@ -87,6 +111,30 @@ namespace MarianoStore.Infra.Services.Messages
                 {
                     MessageIdReference = messageIdReference
                 },
+                transaction: sqlTransaction);
+        }
+
+        public IEnumerable<MessageInBrokerModel> GetMessagesToPublish(
+            bool isEvent,
+            int secondsDelay,
+            SqlConnection sqlConnection,
+            SqlTransaction sqlTransaction)
+        {
+            string sql =
+                $@"
+                    SELECT
+                        {_fields}
+                    FROM
+                        [MessageInBroker]
+                    WHERE
+                        [MessageInBroker] IS NULL
+                        AND [Processed] IS NULL
+                        AND [Stored] < DATEADD(second, -{secondsDelay}, GETUTCDATE())
+                        AND [IsEvent] = '{(isEvent ? 1 : 0)}'
+                ";
+
+            return sqlConnection.Query<MessageInBrokerModel>(
+                sql: sql,
                 transaction: sqlTransaction);
         }
 

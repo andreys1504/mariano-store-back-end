@@ -53,13 +53,13 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                 //using IServiceScope scope = _serviceProvider2.CreateScope();
 
                 string commandName = null;
-                string commandName_Name = null;
+                string commandName_FullName = null;
                 MessageInBrokerModel messageInBroker = null;
                 string serializedCommand = null;
 
                 try
                 {
-                    (commandName, commandName_Name, messageInBroker, serializedCommand) = GetMessage(eventArgs, channel, loggerService);
+                    (commandName, commandName_FullName, messageInBroker, serializedCommand) = GetMessage(eventArgs, channel, loggerService);
                 }
                 catch
                 {
@@ -81,7 +81,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                 try
                 {
                     messageInBrokerService.MarkAsProcessed(message: messageInBroker, sqlConnection: sqlConnection, sqlTransaction: sqlTransaction);
-                    consumer(serializedCommand, commandName, commandName_Name);
+                    consumer(serializedCommand, commandName, commandName_FullName);
                     channel.BasicAck(deliveryTag: eventArgs.DeliveryTag, multiple: false);
 
                     sqlTransaction.Commit();
@@ -107,20 +107,20 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
 
         private SqlConnection GetNewSqlConnection()
         {
-            var sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings);
+            var sqlConnection = ConnectionDatabase.NewConnection(environmentSettings: _environmentSettings);
             _sqlConnections.Add(sqlConnection);
             return sqlConnection;
         }
 
 
         //
-        private (string commandName, string commandName_Name, MessageInBrokerModel messageInBroker, string serializedCommand) GetMessage(
+        private (string commandName, string commandName_FullName, MessageInBrokerModel messageInBroker, string serializedCommand) GetMessage(
             BasicDeliverEventArgs eventArgs,
             IModel channel,
             ILoggerService loggerService)
         {
             string commandName = null;
-            string commandName_Name = null;
+            string commandName_FullName = null;
             MessageInBrokerModel messageInBroker = null;
             string serializedCommand = null;
 
@@ -129,22 +129,15 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                 ReadOnlyMemory<byte> body = eventArgs.Body;
                 string postMessage = Encoding.UTF8.GetString(body.ToArray());
 
-                KeyValuePair<string, object> commandNameProperty = eventArgs.BasicProperties.Headers.FirstOrDefault(header => header.Key == "CommandName");
-                if (commandNameProperty.Equals(default(KeyValuePair<string, object>)))
-                    throw new ArgumentNullException(message: "commandNameProperty is null", innerException: null);
 
-                commandName = Encoding.UTF8.GetString(commandNameProperty.Value as byte[]);
+                commandName = GetValueInBasicProperties(eventArgs, key: "CommandName");
                 if (string.IsNullOrWhiteSpace(commandName))
-                    throw new ArgumentNullException(message: "commandName is null", innerException: null);
+                    throw new ArgumentNullException("commandName is null");
 
 
-                KeyValuePair<string, object> commandName_NameProperty = eventArgs.BasicProperties.Headers.FirstOrDefault(header => header.Key == "CommandName_Name");
-                if (commandName_NameProperty.Equals(default(KeyValuePair<string, object>)))
-                    throw new ArgumentNullException(message: "commandName_NameProperty is null", innerException: null);
-
-                commandName_Name = Encoding.UTF8.GetString(commandName_NameProperty.Value as byte[]);
-                if (string.IsNullOrWhiteSpace(commandName_Name))
-                    throw new ArgumentNullException(message: "commandName_Name is null", innerException: null);
+                commandName_FullName = GetValueInBasicProperties(eventArgs, key: "CommandName_FullName");
+                if (string.IsNullOrWhiteSpace(commandName_FullName))
+                    throw new ArgumentNullException("commandName_FullName is null");
 
 
                 messageInBroker = JsonConvert.DeserializeObject<MessageInBrokerModel>(postMessage);
@@ -163,7 +156,16 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
             }
 
 
-            return (commandName, commandName_Name, messageInBroker, serializedCommand);
+            return (commandName, commandName_FullName, messageInBroker, serializedCommand);
+        }
+
+        private string GetValueInBasicProperties(BasicDeliverEventArgs eventArgs, string key)
+        {
+            KeyValuePair<string, object> header = eventArgs.BasicProperties.Headers.FirstOrDefault(header_ => header_.Key == key);
+            if (header.Equals(default(KeyValuePair<string, object>)))
+                return null;
+
+            return Encoding.UTF8.GetString(header.Value as byte[]);
         }
     }
 }

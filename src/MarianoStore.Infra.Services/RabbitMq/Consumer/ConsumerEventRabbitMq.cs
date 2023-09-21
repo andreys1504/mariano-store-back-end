@@ -54,13 +54,13 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                 //using IServiceScope scope = _serviceProvider.CreateScope();
 
                 string eventName = null;
-                string eventName_Name = null;
+                string eventName_FullName = null;
                 MessageInBrokerModel messageInBroker = null;
                 string serializedEvent = null;
 
                 try
                 {
-                    (eventName, eventName_Name, messageInBroker, serializedEvent) = 
+                    (eventName, eventName_FullName, messageInBroker, serializedEvent) = 
                         GetMessage(
                             eventArgs,
                             channel,
@@ -88,7 +88,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                 try
                 {
                     messageInBrokerService.MarkAsProcessed(message: messageInBroker, sqlConnection: sqlConnection2, sqlTransaction: sqlTransaction);
-                    consumer(serializedEvent, eventName, eventName_Name);
+                    consumer(serializedEvent, eventName, eventName_FullName);
                     channel.BasicAck(deliveryTag: eventArgs.DeliveryTag, multiple: false);
 
                     sqlTransaction.Commit();
@@ -114,7 +114,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
 
 
         //
-        private (string eventName, string eventName_Name, MessageInBrokerModel messageInBroker, string serializedEvent) GetMessage(
+        private (string eventName, string eventName_FullName, MessageInBrokerModel messageInBroker, string serializedEvent) GetMessage(
             BasicDeliverEventArgs eventArgs,
             IModel channel,
             SqlConnection sqlConnection,
@@ -122,7 +122,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
             ILoggerService loggerService)
         {
             string eventName = null;
-            string eventName_Name = null;
+            string eventName_FullName = null;
             MessageInBrokerModel messageInBroker = null;
             string serializedEvent = null;
 
@@ -138,9 +138,9 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
                     throw new ArgumentNullException("eventName is null");
 
 
-                eventName_Name = GetValueInBasicProperties(eventArgs, key: "EventName_Name");
-                if (string.IsNullOrWhiteSpace(eventName_Name))
-                    throw new ArgumentNullException("eventName_Name is null");
+                eventName_FullName = GetValueInBasicProperties(eventArgs, key: "EventName_FullName");
+                if (string.IsNullOrWhiteSpace(eventName_FullName))
+                    throw new ArgumentNullException("eventName_FullName is null");
 
 
                 string currentContextMessage = GetValueInBasicProperties(eventArgs, key: "CurrentContext");
@@ -160,6 +160,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
 
                     if (messageReference == null)
                         messageInBroker = messageInBrokerService.CreateMessage(
+                            fullName: messageInBroker.FullName,
                             name: messageInBroker.Name,
                             currentContext: _environmentSettings.CurrentContext,
                             body: serializedEvent,
@@ -188,7 +189,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
             }
 
 
-            return (eventName, eventName_Name, messageInBroker, serializedEvent);
+            return (eventName, eventName_FullName, messageInBroker, serializedEvent);
         }
 
         private string GetValueInBasicProperties(BasicDeliverEventArgs eventArgs, string key)
@@ -202,7 +203,7 @@ namespace MarianoStore.Infra.Services.RabbitMq.Consumer
 
         private SqlConnection GetNewSqlConnection()
         {
-            SqlConnection sqlConnection = ConnectionDatabase.GetConnection(environmentSettings: _environmentSettings);
+            SqlConnection sqlConnection = ConnectionDatabase.NewConnection(environmentSettings: _environmentSettings);
             _sqlConnections.Add(sqlConnection);
 
             return sqlConnection;

@@ -5,6 +5,7 @@ namespace MarianoStore.Core.Messages.MessageInBroker.Models
     public class MessageInBrokerModel
     {
         public int MessageId { get; set; }
+        public string FullName { get; set; }
         public string Name { get; set; }
         public string CurrentContext { get; set; }
         public string Body { get; set; }

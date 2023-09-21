@@ -5,7 +5,7 @@ namespace MarianoStore.Core.Infra.Data
 {
     public class ConnectionDatabase
     {
-        public static SqlConnection GetConnection(EnvironmentSettings environmentSettings)
+        public static SqlConnection NewConnection(EnvironmentSettings environmentSettings)
         {
             var sqlConnection = new SqlConnection(connectionString: environmentSettings.SqlServerConnectionString);
             sqlConnection.Open();

@@ -13,11 +13,7 @@
 	  <ProjectReference Include="..\MarianoStore.Core\MarianoStore.Core.csproj" />
 	  <ProjectReference Include="..\MarianoStore.Ioc\MarianoStore.Ioc.csproj" />
 	  <ProjectReference Include="..\MarianoStore.Pedidos.Application\MarianoStore.Pedidos.Application.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="AsyncOperationsOnPedidos\Commands\ConsumersCommands\" />
-	  <Folder Include="AsyncOperationsOnPedidos\Events\ConsumersEvents\" />
+	  <ProjectReference Include="..\MarianoStore.Pedidos.Ioc\MarianoStore.Pedidos.Ioc.csproj" />
 	</ItemGroup>
 
 </Project>

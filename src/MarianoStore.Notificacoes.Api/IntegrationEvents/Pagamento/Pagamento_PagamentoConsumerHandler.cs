@@ -27,7 +27,7 @@ namespace MarianoStore.Notificacoes.Api.IntegrationEvents.Pedidos
             var consumerEventRabbitMq = scope1.ServiceProvider.GetService<IConsumerEventRabbitMq>();
             await consumerEventRabbitMq.ConsumerEventAsync(
                 queueName: QueuesSettings.PAGAMENTO.PagamentoEvents.Queue,
-                consumer: (serializedEvent, eventName, eventName_Name) =>
+                consumer: (serializedEvent, eventName, eventName_FullName) =>
                 {
                     if (string.IsNullOrWhiteSpace(serializedEvent) || string.IsNullOrWhiteSpace(eventName)) return;
 
@@ -35,7 +35,7 @@ namespace MarianoStore.Notificacoes.Api.IntegrationEvents.Pedidos
                     using IServiceScope scope = _serviceProvider.CreateScope();
                     var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
 
-                    if (eventName_Name == nameof(PagamentoRealizadoSucessoEvent))
+                    if (eventName == nameof(PagamentoRealizadoSucessoEvent))
                         mediatorHandler.SendEventToHandlerAsync(JsonConvert.DeserializeObject<PagamentoRealizadoSucessoEvent>(serializedEvent)).Wait();
                 });
         }

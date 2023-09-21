@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.IntegrationEvents
+namespace MarianoStore.Pedidos.Ioc.IntegrationEvents
 {
     public static class Dependencies
     {

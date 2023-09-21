@@ -11,7 +11,7 @@ namespace MarianoStore.Core.Infra.Data
         {
             services.AddTransientWithRetry<SqlConnection, SqlException>(serviceProvider =>
             {
-                return ConnectionDatabase.GetConnection(environmentSettings);
+                return ConnectionDatabase.NewConnection(environmentSettings);
             }, retryCount: 5);
         }
     }

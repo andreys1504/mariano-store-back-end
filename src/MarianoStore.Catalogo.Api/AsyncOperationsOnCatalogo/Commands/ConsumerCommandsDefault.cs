@@ -25,16 +25,16 @@ namespace MarianoStore.Catalogo.Api.AsyncOperationsOnCatalogo.Commands
             var consumerCommandRabbitMq = scope1.ServiceProvider.GetService<IConsumerCommandRabbitMq>();
             await consumerCommandRabbitMq.ConsumerCommandAsync(
                 queueName: QueuesSettings.CommandsQueue,
-                consumer: (serializedCommand, commandName, commandName_Name) =>
+                consumer: (serializedCommand, commandName, commandName_FullName) =>
                 {
-                    if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName)) return;
+                    if (string.IsNullOrWhiteSpace(serializedCommand) || string.IsNullOrWhiteSpace(commandName_FullName)) return;
 
 
                     using IServiceScope scope = _serviceProvider.CreateScope();
                     var mediatorHandler = scope.ServiceProvider.GetService<IMediatorHandler>();
 
 
-                    mediatorHandler.SendCommandObjectToHandlerAsync(serializedCommand: serializedCommand, commandName: commandName).Wait();
+                    mediatorHandler.SendCommandObjectToHandlerAsync(serializedCommand: serializedCommand, commandName: commandName_FullName).Wait();
                 });
         }
     }

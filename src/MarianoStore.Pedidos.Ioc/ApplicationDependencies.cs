@@ -7,7 +7,7 @@ using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.Ioc
+namespace MarianoStore.Pedidos.Ioc
 {
     public static class ApplicationDependencies
     {
@@ -18,15 +18,19 @@ namespace MarianoStore.Pedidos.Api.Ioc
             services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.DomainLayer)));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load(environmentSettings.ApplicationLayer)));
 
+            MarianoStore.Ioc.Dependencies.Register(services, environmentSettings);
+        }
+
+        public static void RegisterDependenciesRabbitMq(IServiceCollection services, EnvironmentSettings environmentSettings)
+        {
             AsyncOperationsOnPedidos.Dependencies.Register(services);
             IntegrationEvents.Dependencies.Register(services);
 
-            MarianoStore.Ioc.Dependencies.Register(services, environmentSettings);
-            RegisterDependenciesRabbitMq(services, environmentSettings);
+            RegisterDependenciesRabbitMq_(services, environmentSettings);
         }
 
         //
-        private static void RegisterDependenciesRabbitMq(IServiceCollection services, EnvironmentSettings environmentSettings)
+        private static void RegisterDependenciesRabbitMq_(IServiceCollection services, EnvironmentSettings environmentSettings)
         {
             ConnectionFactory connectionFactory = CreateConnectionFactory.Create(environmentSettings);
             IConnection connectionRabbitMq = CreateConnection.Create(connectionFactory);

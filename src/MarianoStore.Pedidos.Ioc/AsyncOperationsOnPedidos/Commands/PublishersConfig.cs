@@ -5,7 +5,7 @@ using MarianoStore.Pedidos.Application.Services.NovoPedido;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Commands
 {
     public class PublishersConfig
     {

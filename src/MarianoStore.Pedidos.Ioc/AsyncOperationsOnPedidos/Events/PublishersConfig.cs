@@ -5,7 +5,7 @@ using MarianoStore.Pedidos.Domain.Events;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Events
 {
     public class PublishersConfig
     {

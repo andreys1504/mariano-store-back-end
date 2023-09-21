@@ -1,4 +1,4 @@
-﻿namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands
+﻿namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Commands
 {
     public class QueuesSettings
     {

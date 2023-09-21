@@ -1,12 +1,12 @@
 ﻿using MarianoStore.Core.Infra.Services.RabbitMq.Consumer;
 using MarianoStore.Core.Infra.Services.RabbitMq.Publisher;
-using MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Commands;
-using MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos.Events;
+using MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Commands;
+using MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos.Events;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace MarianoStore.Pedidos.Api.AsyncOperationsOnPedidos
+namespace MarianoStore.Pedidos.Ioc.AsyncOperationsOnPedidos
 {
     public static class Dependencies
     {
